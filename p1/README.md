@@ -11,7 +11,7 @@ In this project you will detect lane lines in images using Python and OpenCV.  O
 
 Writeup
 ---
-For this project, a great writeup should provide a detailed response to the "Reflection" section of the [project rubric](https://review.udacity.com/#!/rubrics/322/view). There are three parts to the reflection:
+
 1. Describe the pipeline
 2. Identify any shortcomings
 3. Suggest possible improvements
@@ -23,8 +23,8 @@ For this project, a great writeup should provide a detailed response to the "Ref
    - triangle
    
    - left ~ right 
-     => width/50 ~ (width - (width/50))
-     => height
+       width/50 ~ (width - (width/50))
+       height
      
    - top
      => width / 2
@@ -64,16 +64,19 @@ when I try above pipeline to challenge.mp4.
    
 Most of lines are reasonablly drawn on challenge.mp4 
 
-
 <img src="result.jpg" width="1000" alt="Combined Image" />
 
+
 2. shortcomings
+---
 1) Above pipeline can not reasonably detect lines when the road is shadowed a lot. 
    - eg.) extra33.jpg
    
 2) extrapolated lines are jittered. 
    - Lines should be stabilized when some application need polished graphics  
-   
+
+
 3. Possible improvement. 
-   - I need to more video data to figure out for further improvement. 
+---
+1) I need to more video data to figure out for further improvement. 
    
