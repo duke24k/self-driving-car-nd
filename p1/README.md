@@ -20,15 +20,11 @@ Writeup
 1-1. pipeline 1 
 ---
 1) defining region of interest  
-   - triangle
+   - I define triangle area as like below.
    
-   - left ~ right 
-       width/50 ~ (width - (width/50))
-       height
+   - left ~ right : width/50 ~ (width - (width/50)), height
      
-   - top
-     => width / 2
-     => 2/height + 50
+   - top: width / 2, 2/height + 50
      
 
 2) Canney Edge Detection 
@@ -44,14 +40,11 @@ Writeup
    
 4) extrapolate lines
 
-   - I use mean value of slopes and biases on each image. 
-     => y = mx + b
+   - Mean value of slopes and biases on each image : y = mx + b
   
-   - sthreshold 0.2
-     => dropping out slope between 0 and -0.2. dropping out slope between 0 and 0.2
+   - sthreshold 0.2 : dropping out slope between 0 and -0.2. dropping out slope between 0 and 0.2
    
-   - blank 30
-     => I use 60 pixeles to make minimum blank width between left and right line. 30 = 60/2  
+   - blank 30 : 30 = 60/2.  60 pixeles to make minimum blank width between left and right line. 
    
    
 Lines are reasonablly drawn on all video frames using above configuration. However I encountered many exceptions (ZeroDivisionError)
@@ -60,7 +53,7 @@ when I try above pipeline to challenge.mp4.
 1-2. pipeline 2 
 ---
 1) Normalize image frame
-   - red pixel and green pixel below 220 are converted to 20.
+   - red pixel value and green pixel value below 220 are converted to 20.
    
 Most of lines are reasonablly drawn on challenge.mp4 
 
@@ -78,5 +71,5 @@ Most of lines are reasonablly drawn on challenge.mp4
 
 3. Possible improvement. 
 ---
-1) I need to more video data to figure out for further improvement. 
+1) Lines on real roads are more complicated than above videos. I need to configure out more robust pipeline with more road data. I 
    
