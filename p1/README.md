@@ -47,29 +47,28 @@ Writeup
    - blank 30 : 30 = 60/2.  60 pixeles to make minimum blank width between left and right line. 
    
    
-Lines are reasonablly drawn on all video frames using above configuration. However I encountered many exceptions (ZeroDivisionError)
-when I try above pipeline to challenge.mp4. 
+All Lanes are  detected and lines are reasonablly drawn on all video frames using above configuration. However, I encountered many exceptions (ZeroDivisionError) when I try above pipeline to challenge.mp4. 
 
 1-2. pipeline 2 
 ---
 1) Normalize image frame
    - red pixel value and green pixel value below 220 are converted to 20.
    
-Most of lines are reasonablly drawn on challenge.mp4 
+Most of Lanes are  detected and lines are reasonablly drawn on challenge.mp4 
 
 <img src="result.jpg" width="1000" alt="Combined Image" />
 
 
 2. shortcomings
 ---
-1) Above pipeline can not reasonably detect lines when the road is shadowed a lot. 
+1) Above pipeline can not reasonably detect lanes when the road is shadowed a lot. 
    - eg.) extra33.jpg
    
 2) extrapolated lines are jittered. 
-   - Lines should be stabilized when some application need polished graphics  
+   - Lanes should be stabilized when some application need polished graphics  
 
 
 3. Possible improvement. 
 ---
-1) Lines on real roads are more complicated than above videos. I need to configure out more robust pipeline with more road data. I 
+1) Lanes on real roads are more complicated than above videos. I need to configure out more robust pipeline with more road data.
    
