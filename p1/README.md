@@ -1,7 +1,6 @@
 #**Finding Lane Lines on the Road** 
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-<img src="laneLines_thirdPass.jpg" width="480" alt="Combined Image" />
 
 Overview
 ---
@@ -10,26 +9,71 @@ When we drive, we use our eyes to decide where to go.  The lines on the road tha
 
 In this project you will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.  
 
-To complete the project, two files will be submitted: a file containing project code and a file containing a brief write up explaining your solution. We have included template files to be used both for the [code](https://github.com/udacity/CarND-LaneLines-P1/blob/master/P1.ipynb) and the [writeup](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md).The code file is called P1.ipynb and the writeup template is writeup_template.md 
-
-To meet specifications in the project, take a look at the requirements in the [project rubric](https://review.udacity.com/#!/rubrics/322/view)
-
-
-Creating a Great Writeup
+Writeup
 ---
 For this project, a great writeup should provide a detailed response to the "Reflection" section of the [project rubric](https://review.udacity.com/#!/rubrics/322/view). There are three parts to the reflection:
 1. Describe the pipeline
 2. Identify any shortcomings
 3. Suggest possible improvements
 
-We encourage using images in your writeup to demonstrate how your pipeline works.  
 
-All that said, please be concise!  We're not looking for you to write a book here: just a brief description.
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup. Here is a link to a [writeup template file](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md). 
-
-
-The Project
+1-1. pipeline 1 
 ---
+1) defining region of interest  
+   - triangle
+   
+   - left ~ right 
+     => width/50 ~ (width - (width/50))
+     => height
+     
+   - top
+     => width / 2
+     => 2/height + 50
+     
+
+2) Canney Edge Detection 
+   - http://docs.opencv.org/trunk/da/d22/tutorial_py_canny.html
+   - gray
+   - gausian blur 
+   - low_threshold 150, high_threshold 200  (my configuration)
+
+
+3) Hough Line Detection 
+   - http://docs.opencv.org/2.4.10/doc/tutorials/imgproc/imgtrans/hough_lines/hough_lines.html
+   - threshold 10, min_line_len 50, max_line_gap 180  (my configuration)
+   
+4) extrapolate lines
+
+   - I use mean value of slopes and biases on each image. 
+     => y = mx + b
+  
+   - sthreshold 0.2
+     => dropping out slope between 0 and -0.2. dropping out slope between 0 and 0.2
+   
+   - blank 30
+     => I use 60 pixeles to make minimum blank width between left and right line. 30 = 60/2  
+   
+   
+Lines are reasonablly drawn on all video frames using above configuration. However I encountered many exceptions (ZeroDivisionError)
+when I try above pipeline to challenge.mp4. 
+
+1-2. pipeline 2 
+---
+1) Normalize image frame
+   - red pixel and green pixel below 220 are converted to 20.
+   
+Most of lines are reasonablly drawn on challenge.mp4 
+
 
 <img src="result.jpg" width="1000" alt="Combined Image" />
+
+2. shortcomings
+1) Above pipeline can not reasonably detect lines when the road is shadowed a lot. 
+   - eg.) extra33.jpg
+   
+2) extrapolated lines are jittered. 
+   - Lines should be stabilized when some application need polished graphics  
+   
+3. Possible improvement. 
+   - I need to more video data to figure out for further improvement. 
+   
