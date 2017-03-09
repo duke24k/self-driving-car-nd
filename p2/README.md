@@ -37,6 +37,12 @@ The goals / steps of this project are the following:
 [image15]: ./examples/final_images.jpg "Traffic Sign 4"
 [image16]: ./examples/placeholder.png "Traffic Sign 5"
 
+[image17]: ./data/11.jpg "Traffic Sign 4"
+[image18]: ./data/15.jpg "Traffic Sign 4"
+[image19]: ./data/2.jpg "Traffic Sign 4"
+[image20]: ./data/38.jpg "Traffic Sign 4"
+[image21]: ./data/40.jpg "Traffic Sign 4"
+
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
@@ -160,8 +166,8 @@ If a well known architecture was chosen:
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![alt text][image17] ![alt text][image18] ![alt text][image19] 
+![alt text][image20] ![alt text][image21]
 
 The first image might be difficult to classify because ...
 
