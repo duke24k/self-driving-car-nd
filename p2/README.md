@@ -28,6 +28,15 @@ The goals / steps of this project are the following:
 [image7]: ./examples/placeholder.png "Traffic Sign 4"
 [image8]: ./examples/placeholder.png "Traffic Sign 5"
 
+[image9]: ./examples/distribution1.jpg "Visualization"
+[image10]: ./examples/distribution2.jpg "Grayscaling"
+[image11]: ./examples/sign_before.jpg "Random Noise"
+[image12]: ./examples/sign_after.png "Traffic Sign 1"
+[image13]: ./examples/placeholder.png "Traffic Sign 2"
+[image14]: ./examples/placeholder.png "Traffic Sign 3"
+[image15]: ./examples/placeholder.png "Traffic Sign 4"
+[image16]: ./examples/placeholder.png "Traffic Sign 5"
+
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
@@ -56,7 +65,7 @@ The code for this step is contained in the third code cell of the IPython notebo
 
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
 
-![alt text][distribution1]
+![alt text][image9]
 
 ###Design and Test a Model Architecture
 
@@ -68,11 +77,11 @@ As a first step, I decided to convert the images to grayscale because ...
 
 Here is an example of a traffic sign image before and after grayscaling.
 
-![alt text][sign_before]
+![alt text][image11]
 
-![alt text][sign_after]
+![alt text][image12]
 
-![alt text][distribution2]
+![alt text][image10]
 
 As a last step, I normalized the image data because ...
 
