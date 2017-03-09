@@ -31,10 +31,10 @@ The goals / steps of this project are the following:
 [image9]: ./examples/distribution1.jpg "Visualization"
 [image10]: ./examples/distribution2.jpg "Grayscaling"
 [image11]: ./examples/sign_before.jpg "Random Noise"
-[image12]: ./examples/sign_after.png "Traffic Sign 1"
-[image13]: ./examples/placeholder.png "Traffic Sign 2"
-[image14]: ./examples/placeholder.png "Traffic Sign 3"
-[image15]: ./examples/placeholder.png "Traffic Sign 4"
+[image12]: ./examples/sign_after.jpg "Traffic Sign 1"
+[image13]: ./examples/split_shuffle.jpg "Traffic Sign 2"
+[image14]: ./examples/fake_image.jpg "Traffic Sign 3"
+[image15]: ./examples/final_images.jpg "Traffic Sign 4"
 [image16]: ./examples/placeholder.png "Traffic Sign 5"
 
 ## Rubric Points
@@ -89,15 +89,19 @@ As a last step, I normalized the image data because ...
 
 The code for splitting the data into training and validation sets is contained in the fifth code cell of the IPython notebook.  
 
+![alt text][image13]
+
 To cross validate my model, I randomly split the training data into a training set and validation set. I did this by ...
 
 My final training set had X number of images. My validation set and test set had Y and Z number of images.
 
 The sixth code cell of the IPython notebook contains the code for augmenting the data set. I decided to generate additional data because ... To add more data to the the data set, I used the following techniques because ... 
 
+![alt text][image14]
+
 Here is an example of an original image and an augmented image:
 
-![alt text][image3]
+![alt text][image15]
 
 The difference between the original data set and the augmented data set is the following ... 
 
