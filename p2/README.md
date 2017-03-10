@@ -34,7 +34,7 @@ The goals / steps of this project are the following:
 [image16]: ./examples/placeholder.png "Traffic Sign 5"
 
 [image17]: ./examples/web_signs.jpg "Traffic Sign 4"
-[image18]: ./data/15.jpg "Traffic Sign 4"
+[image18]: ./examples/model_selection.jpg "Traffic Sign 4"
 [image19]: ./data/2.jpg "Traffic Sign 4"
 [image20]: ./data/38.jpg "Traffic Sign 4"
 [image21]: ./data/40.jpg "Traffic Sign 4"
@@ -94,7 +94,7 @@ To cross validate my model, I randomly split the training data into a training s
 
 My final training set had 42,356 number of images. My validation set and test set had 18,153 and 12,630 number of images.
 
-The 12th code cell of the IPython notebook contains the code for augmenting the data set. I decided to generate additional data because some traffic sign has very small data set and it can cause unbalanced batches to the model during training.  To add more data to the the data set, I used because ... 
+The 12th code cell of the IPython notebook contains the code for augmenting the data set. I decided to generate additional data because some traffic sign has very small data set and it can cause unbalanced batches to the model during training.  To add more data to the the data set, I selected images which has less than 400 number of images  and made 5 copies of images. And I used rotation within 10 degree and translation within 5 pixels in each X and Y axis because similar images are better for testing.  
 
 ![alt text][image14]
 
@@ -104,43 +104,59 @@ Here is an example of an original image and an augmented image:
 
 ![alt text][image15]
 
-The difference between the original data set and the augmented data set is the following ... 
-
+ 
 
 ####3. Describe, and identify where in your code, what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-The code for my final model is located in the seventh cell of the ipython notebook. 
+The code for my final model is located in the 27th cell of the ipython notebook. 
 
 My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Input         		| 32x32x1  image   							| 
+| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x16 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
+| DROPOUT				| 0.6											|
+| Max pooling	      	| 2x2 stride,  outputs 16x16x16 				|
+| Convolution 3x3	    | 1x1 stride, same padding, outputs 16x16x32	|
+| RELU					|												|
+| DROPOUT				| 0.6											|
+| Max pooling	      	| 2x2 stride,  outputs 8x8x32 					|
+| Fully connected		| 6144x1200       								|
+| RELU					|												|
+| DROPOUT				| 0.6											|
+| Fully connected		| 1200x43         								|
+| Softmax				|        										|
+
 
 
 ####4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-The code for training the model is located in the eigth cell of the ipython notebook. 
+The code for training the model is located in the 29th and 34th cell of the ipython notebook. 
 
-To train the model, I used an ....
+To train the model, I used an 
+- Adam optimizer
+- batch size : 128
+- number of epochs : 100
+- learning rate : 0.001
+
+I used 128 batch size because 144, (total number of images, 60,509/ the most small number of image, 420) is similar to 128. I followed common parameter values for Adam optimizer and learning rate. 
 
 ####5. Describe the approach taken for finding a solution. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-The code for calculating the accuracy of the model is located in the ninth cell of the Ipython notebook.
+I used 4 layer CNN architecture. 
+
+![alt text][image18]
+
+The code for calculating the accuracy of the model is located in the 34th  cell of the Ipython notebook.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set at last batch accuracy of ? 100%
+* validation set at last batch accuracy of ? 100% 
+* test set accuracy of ? 95.6 %
+
+
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
