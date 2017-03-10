@@ -135,7 +135,12 @@ I used 128 batch size because 144, (total number of images, 60,509/ the most sma
 
 ####5. Describe the approach taken for finding a solution. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-I used 4 layer CNN architecture. 
+I used 4 layer CNN architecture. Below images are error images during validation process. I collected these error images randomly using evaluation data set to invesitigte my model. 
+
+The code for debugging the model is located in different file.
+Traffic_Sign_Classifier_submit_revised.ipynb.(https://github.com/jongchul/self-driving-car-nd/blob/master/p2/Traffic_Sign_Classifier_submit_revised.ipynb)
+
+The code for debugging the model is located in the 299th and 300th cell of the ipython notebook,
 
 ![alt text][image18]
 
@@ -149,17 +154,20 @@ My final model results were:
 
 
 If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to over fitting or under fitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+- I tested 4 layer CNN without L2 regularization very first and found out that regularization can help 1~2% accuracy boost. I added dropout layers betweein convolution and fully connected layer for 
+further regularization. 
+
+- I made 2 additional dataset. 
+
+X_train_original_fake : 5 copies of images whose number are below 400.
+
+X_train_original_fake_second : X_train_original_fake + 3 copies of images whose number are below 1000.
+
+The first additional dataset works better than the second addtional dataset. I think that it is because the first one, X_train_original_fake, provide more balanced training batch data to the model than the second one.
+
+I calcuated total loss of training set at each epoch and validation set at every 10 epoches. And I finally calculated accuracy of test set at the final epoch. These total loss of training and validation data shows that my model is getting better during training.
+  
 
 ###Test a Model on New Images
 
@@ -169,24 +177,24 @@ Here are five German traffic signs that I found on the web:
 
 ![alt text][image17] 
 
-The first image might be difficult to classify because ...
+The third and fourth images might be difficult to classify because the location of third one is skewed and the fourth one has big portion of unnecessary web tag.
 
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-The code for making predictions on my final model is located in the tenth cell of the Ipython notebook.
+The code for making predictions on my final model is located in the 40th cell of the Ipython notebook.
 
 Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Right-of-way at the next intersection	| Right-of-way at the next intersection		| 
+| Speed limit (50km/h)  	 			| Speed limit (50km/h)   					|
+| Keep right							| Yield										|
+| No vehicles	      					| Dangerous curve to the right				|
+| Roundabout mandatory					| Roundabout mandatory      				|
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 3 of the 5 traffic signs, which gives an accuracy of 60%. This compares favorably to the accuracy on the test set of 95.6%, since web data set has noise and clear dataset shows correct predictions.
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
@@ -196,11 +204,11 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| .60         			| Right-of-way at the next intersection   									| 
+| .20     				| Speed limit (50km/h) 										|
+| .05					| Keep right											|
+| .04	      			| No vehicles					 				|
+| .01				    | Roundabout mandatory      							|
 
 
 For the second image ... 
