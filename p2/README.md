@@ -1,10 +1,6 @@
 #**Traffic Sign Recognition** 
 
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
+Final Test Set Accuracy : 95.6 %
 
 **Build a Traffic Sign Recognition Project**
 
@@ -43,15 +39,9 @@ The goals / steps of this project are the following:
 [image20]: ./data/38.jpg "Traffic Sign 4"
 [image21]: ./data/40.jpg "Traffic Sign 4"
 
-## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
----
-###Writeup / README
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
-
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+You're reading it! and here is a link to my [project code](https://github.com/jongchul/self-driving-car-nd/blob/master/p2/Traffic_Sign_Classifier_submit.ipynb)
 
 ###Data Set Summary & Exploration
 
@@ -67,9 +57,10 @@ signs data set:
 
 ####2. Include an exploratory visualization of the dataset and identify where the code is in your code file.
 
-The code for this step is contained in the third code cell of the IPython notebook.  
+The code for this step is contained in the 7~9th code cells of the IPython notebook.  
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+Here is an exploratory visualization of the data set. It is a bar chart.
+The x-axis represents each traffic sign. The y-axis represents a number of samples for each traffic sign. 
 
 ![alt text][image9]
 
@@ -77,9 +68,10 @@ Here is an exploratory visualization of the data set. It is a bar chart showing 
 
 ####1. Describe how, and identify where in your code, you preprocessed the image data. What tecniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc.
 
-The code for this step is contained in the fourth code cell of the IPython notebook.
+The code for this step is contained in the 2nd ~ fourth code cell of the IPython notebook.
 
-As a first step, I decided to convert the images to grayscale because ...
+As a first step, I decided to convert the images to grayscale because RGB color space has wide variation among same object images than gray scale image space. I choose to use only Y value 
+in YCrCb color space. (https://en.wikipedia.org/wiki/YCbCr) 
 
 Here is an example of a traffic sign image before and after grayscaling.
 
@@ -87,25 +79,28 @@ Here is an example of a traffic sign image before and after grayscaling.
 
 ![alt text][image12]
 
-![alt text][image10]
 
-As a last step, I normalized the image data because ...
+As a last step, I normalized the image data, using skimage package. 
+(http://scikit-image.org/docs/dev/api/skimage.exposure.html#skimage.exposure.equalize_adapthist) 
 
 ####2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
 
-The code for splitting the data into training and validation sets is contained in the fifth code cell of the IPython notebook.  
+The code for splitting the data into training and validation sets is contained in the 24th code cell of the IPython notebook.  
+
 
 ![alt text][image13]
 
-To cross validate my model, I randomly split the training data into a training set and validation set. I did this by ...
+To cross validate my model, I randomly split the training data into a training set and validation set. I did this by using sklearn python package (http://scikit-learn.org/stable/modules/generated/sklearn.utils.shuffle.html)
 
-My final training set had X number of images. My validation set and test set had Y and Z number of images.
+My final training set had 42,356 number of images. My validation set and test set had 18,153 and 12,630 number of images.
 
-The sixth code cell of the IPython notebook contains the code for augmenting the data set. I decided to generate additional data because ... To add more data to the the data set, I used the following techniques because ... 
+The 12th code cell of the IPython notebook contains the code for augmenting the data set. I decided to generate additional data because some traffic sign has very small data set and it can cause unbalanced batches to the model during training.  To add more data to the the data set, I used because ... 
 
 ![alt text][image14]
 
 Here is an example of an original image and an augmented image:
+
+![alt text][image10]
 
 ![alt text][image15]
 
