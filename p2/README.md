@@ -1,6 +1,6 @@
 #**Traffic Sign Recognition** 
 
-Final Test Set Accuracy : 95.6 %
+Final Test Set Accuracy : 96.5 %
 
 
 [//]: # (Image References)
