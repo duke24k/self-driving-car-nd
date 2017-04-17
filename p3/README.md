@@ -28,6 +28,11 @@ The goals / steps of this project are the following:
 [image7]: ./examples/udacity2.jpg "Recovery Image"
 [image8]: ./examples/udacity3.jpg "Recovery Image"
 
+[image9]: ./examples/raw.jpg "Recovery Image"
+[image10]: ./examples/yuv.jpg "Recovery Image"
+[image11]: ./examples/flip.jpg "Recovery Image"
+[image12]: ./examples/final.jpg "Recovery Image"
+
 
 
 ## Rubric Points
@@ -125,8 +130,10 @@ Then I repeated this process on track two in order to get more data points.
 
 To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
 
-![alt text][image6]
-![alt text][image7]
+![alt text][image9]
+![alt text][image10]
+![alt text][image11]
+![alt text][image12]
 
 Etc ....
 
