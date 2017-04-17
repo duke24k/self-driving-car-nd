@@ -23,8 +23,12 @@ The goals / steps of this project are the following:
 [image3]: ./examples/recovery1.jpg "Recovery Image"
 [image4]: ./examples/recovery2.jpg "Recovery Image"
 [image5]: ./examples/recovery3.jpg "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+
+[image6]: ./examples/udacity1.jpg "Recovery Image"
+[image7]: ./examples/udacity2.jpg "Recovery Image"
+[image8]: ./examples/udacity3.jpg "Recovery Image"
+
+
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -107,7 +111,9 @@ Here is a visualization of the architecture (note: visualizing the architecture 
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
-![alt text][image2]
+![alt text][image6]
+![alt text][image7]
+![alt text][image8]
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
 
