@@ -47,6 +47,8 @@ The model used an adam optimizer, so the learning rate was not tuned manually.
 
 ###Data Sub Sampling
 
+https://github.com/jeremy-shannon/CarND-Behavioral-Cloning-Project/blob/master/model.py
+
 
 ![alt text][image13]
 ![alt text][image14]
