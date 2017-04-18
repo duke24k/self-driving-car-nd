@@ -33,7 +33,7 @@ Instead of using the NVIDIA architecture from their paper (5 convolutional layer
 
 
 My model consists of a convolution neural network with 5x5, 3x3 filter sizes and depths of 24, 36, 48, 64. 
-The code for this step is contained in the 2th code cells of the IPython notebook, p3_final.ipynb) 
+(The code for this step is contained in the 2th code cells of the IPython notebook, p3_final.ipynb) 
 The model includes ELU layers to introduce nonlinearity and the data is cropped and normalized in the model using a Keras lambda layer. 
 
 In order to reduce overfitting, the model contains maxpooling in cnn layers and dropout in fcn layers  
@@ -68,7 +68,7 @@ downsampling result is slightly different and I tried to make similar mean value
 ![alt text][image13]
 ![alt text][image14]
 
-The code for this step is contained from the 7th to 13th  code cell of the IPython notebook, p3_final.ipynb) 
+(The code for this step is contained from the 7th to 13th  code cell of the IPython notebook, p3_final.ipynb) 
 
 reference:
 https://github.com/jeremy-shannon/CarND-Behavioral-Cloning-Project
@@ -85,21 +85,27 @@ I used 35, -35 offset for left and right side camera images.
 ![alt text][image8]
 
 
-The model did not run after the first training. I trained my model several times and made the model run on the first track. However, it  
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+The model did not run after the first training. I trained my model several times and made the model run on the first track except only one problem area. I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover. These images show what a recovery looks like pulling away from the wall. 
 
 ![alt text][image3]
 ![alt text][image4]
 ![alt text][image5]
 
-Then I repeated this process on track two in order to get more data points.
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
+To augment the data sat, I did
+- convert color space to YUV
+- random darken
+- vertical shift and/or horizontal shift
+- horizontal flipping
+- crop
+
 
 ![alt text][image9]
 ![alt text][image10]
 ![alt text][image11]
 ![alt text][image12]
+
+
 
 
 ####Training 
