@@ -88,7 +88,7 @@ I used 0.35, -0.35 steering angle offset for left and right side camera images.
 ![alt text][image8]
 
 
-The model did not run after the first training. I trained my model several times and made the model run on the first track except only one problem area. I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover on the problem area. These images show what a recovery looks like pulling away from the wall. 
+The model did not run after the first training. I trained model several times in the way of Training section. Finally my model ran on the first track except only one problem area. I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover on the problem area. These images show what a recovery looks like pulling away from the wall. 
 
 ![alt text][image3]
 ![alt text][image4]
@@ -115,7 +115,7 @@ To augment the data sat, I did
 ---
 Training 
 
-I used udacity data and recovery data to train my model. First I split udacity data into train and validation set. I used 256 batch size and 2~3 epochs. The result slightly different. Some models run better than other models. And if, I saved the model which showed better performance on the simulator with versioning. And I restore the model and trained it again with recovery data in similar way to train the model with udacity data. If the retrained model looks better, I mean it keep distance from the wall on the problem area, I saved it. I tried several times and finally my model run on the 1st track without problem. 
+I used udacity data and recovery data to train my model. First I split udacity data into train and validation set. I used 256 batch size and 2~3 epochs. The result were slightly  different. Some models ran better than other models. I saved the model which showed better performance on the simulator with versioning. And I restored the model and trained it again with recovery data in similar way to train the model with udacity data. If the retrained model looked better, I mean it keep distance from the wall on the problem area, I saved it. I tried several times and finally my model run on the 1st track without problem. 
 
 To check downsampling result, I used seperated ipython notebook file. 
 
@@ -138,7 +138,7 @@ My project includes the following files:
 | README.md	 	 	  	| 																									|
 
 
-* p3_final.ipynb and p3_patch.ipynb are same. I use different directories and different sub-sampling parameters for different data.
+* p3_final.ipynb and p3_patch.ipynb are same. I used different directories and different sub-sampling parameters for different data.
 
 * I added below codes to drive.py file to resize image and convert color space to YUV.
 ```sh                                                     
