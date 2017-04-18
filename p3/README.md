@@ -27,7 +27,7 @@
 
 ---
 
-###Model Architecture
+Model Architecture
 
 Instead of using the NVIDIA architecture from their paper (5 convolutional layers, use convolutional strides rather than pooling, 3 fully connected layers) or the comma.ai architecture (3 convolutional layers, use convolutional strides rather than pooling, 1 fully connected layer), I ended up 4 convolutional layers and 2 fully connected layers and I decided to keep max pooling as a way of allowing the model to learn generailized behavior.
 
@@ -44,8 +44,8 @@ The model used an adam optimizer, so the learning rate was not tuned manually.
 
 ![alt text][image1]
 
-
-###Data Downsampling
+---
+Data Downsampling
 
 I used udacity data to train my model. 35 degree shift is used for left and right images. 
 The data is highly toward 0, 35, -35, steering angles. I did downsampling work as below. 
@@ -73,8 +73,8 @@ downsampling result is slightly different and I tried to make similar mean value
 reference:
 https://github.com/jeremy-shannon/CarND-Behavioral-Cloning-Project
 
-
-####Preprocessing
+---
+Preprocessing
 
 I used udacity data to train my model. Udacity data consists of center, left, right side camera images. 
 I used 35, -35 offset for left and right side camera images.
@@ -106,9 +106,10 @@ To augment the data sat, I did
 ![alt text][image12]
 
 
+(The code for this step is contained from the 14th to 16th code cell of the IPython notebook, p3_final.ipynb)
 
-
-####Training 
+---
+Training 
 
 I used udacity data and recovery data to train my model. First I split udacity data into train and validation set. I used 256 batch size and 2~3 epochs. And if the model showes better performance on the simulator, I save it with versioning. And I restore the model and trained it again with recovery data in similar way to train the model with udacity data. If the retrained model looks better, I mean it keep distance from the wall, I saved it. I tried several times and finally my model run on the 1st track without problem. 
 To check downsampling result, I used seperated ipython notebook file. 
@@ -116,8 +117,10 @@ To check downsampling result, I used seperated ipython notebook file.
 - p3_final.ipynb 
 - p3_patch.ipynb
 
+(The code for this step is contained from the 18th to 20th code cell of the IPython notebook, p3_final.ipynb)
 
-###Code submission
+---
+Code submission
 My project includes the following files:
 
 | File         				|     Description	        					  					  								| 
@@ -131,7 +134,7 @@ My project includes the following files:
 
 * p3_final.ipynb and p3_patch.ipynb are same. I use different directories and different sub-sampling parameters for different data.
 
-* drive_yuv.py is same to drive.py which udacity provides. I added below codes to resize image and convert color space to YUV.
+* I added below codes to drive.py file to resize image and convert color space to YUV.
 ```sh                                                     
      resized = cv2.resize( np.asarray(image), (320, 160))
      file = cv2.cvtColor( resized , cv2.COLOR_BGR2YUV)
@@ -154,7 +157,7 @@ the car can be driven autonomously around the 1st track by executing
 python drive_yuv.py model_v3_patch_v6.h5
 ```
 
-| Model        				|     Record Download Link	        	  					  										| 
+| Model        				|     Driving Record 	        	  					  											| 
 |:-------------------------:|:-------------------------------------------------------------------------------------------------:| 
 | model_v3_patch_v6.h5    	| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/run1.mp4							| 
 |     	 					| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/movie.mp4 							|
