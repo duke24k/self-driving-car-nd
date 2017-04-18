@@ -30,9 +30,7 @@ The goals / steps of this project are the following:
 ---
 
 
-####1. Submission includes all required files and can be used to run the simulator in autonomous mode
-
-
+My project includes the following files:
 
 | File         				|     Description	        					  					  				| 
 |:-------------------------:|:---------------------------------------------------------------------------------:| 
@@ -43,60 +41,46 @@ The goals / steps of this project are the following:
 |  README.md	 	 	  	| 																					|
 
 
+* p3_final.ipynb and p3_patch.ipynb are same except some part sub-sampling logic, which I use different directories and different 
+  sub-sampling parameters for different data.
 
-
-My project includes the following files:
-* p3_final.ipynb - containing the script to create and train the model using udacity data
-* p3_patch.ipynb - containing the script to create and train the model using data which I additionally collected. 
-
-    p3_final.ipynb and p3_patch.ipynb are same except sub-sampling logic, which I use different directories and different 
-    sub-sampling parameters for different data.
-
-* drive_yuv.py - driving the car in autonomous mode. I added below codes to resize image and convert color space to YUV.
+* drive_yuv.py is same to drive.py which udacity provides. I added below codes to resize image and convert color space to YUV.
                                                      
      resized = cv2.resize( np.asarray(image), (320, 160))
      file = cv2.cvtColor( resized , cv2.COLOR_BGR2YUV)
 
-
 * model_v3_patch_v6.h5 
   : https://drive.google.com/open?id=0B3qIpWd3o2CxeDdxaDlzTHBhOHM
-  model.h5.30epoch_bump_smoother 
+  additional model
   : https://drive.google.com/file/d/0B3qIpWd3o2CxcmZWTVNvOW9KS28/view?usp=sharing
-  - containing a trained convolution neural network 
   
-* README.md - summarizing the results
 
-####2. Submission includes functional code
+I used the 1st track to test.
+  - Screen resolution : 800*600  
+  - graphic quailtiy : Simple
+
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the 1st track by executing 
 ```sh
 python drive_yuv.py model_v3_patch_v6.h5
 ```
-I used 
-  - Screen resolution : 800*600  
-  - graphic quailtiy : Simple
 
-####3. Submission code is usable and readable
+https://github.com/jongchul/self-driving-car-nd/blob/master/p3/run1.mp4
+#https://github.com/jongchul/self-driving-car-nd/blob/master/p3/movie.mp4
+  
 
-The p3_final.ipynb, p3_patch.ipynb contain the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
 ###Model Architecture and Training Strategy
 
-####1. An appropriate model architecture has been employed
-
-My model consists of a convolution neural network with 5x5, 3x3 filter sizes and depths between 24 and 64 
+My model consists of a convolution neural network with 5x5, 3x3 filter sizes and depths of 24, 36, 48, 64. 
 The code for this step is contained in the 2th code cells of the IPython notebook, p3_final.ipynb,p3_patch.ipynb) 
-
 The model includes ELU layers to introduce nonlinearity and the data is cropped and normalized in the model using a Keras lambda layer. 
 
-####2. Attempts to reduce overfitting in the model
-
-The model contains maxpooling in cnn layers and dropout in fcn layers  in order to reduce overfitting. 
+In order to reduce overfitting, the model contains maxpooling in cnn layers and dropout in fcn layers  
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
-####3. Model parameter tuning
-
 The model used an adam optimizer, so the learning rate was not tuned manually.
+
 
 ####4. Appropriate training data
 
