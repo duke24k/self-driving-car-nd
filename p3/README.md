@@ -32,13 +32,13 @@ The goals / steps of this project are the following:
 
 My project includes the following files:
 
-| File         				|     Description	        					  					  				| 
-|:-------------------------:|:---------------------------------------------------------------------------------:| 
-| p3_final.ipynb   			| create and train the model using udacity data   									| 
-| p3_patch.ipynb    	 	| create and train the model using recovery data which I additionally collected 	|
-| drive_yuv.py				| driving the car in autonomous mode												|
-| model_v3_patch_v6.h5 		| model 																			|
-|  README.md	 	 	  	| 																					|
+| File         				|     Description	        					  					  								| 
+|:-------------------------:|:-------------------------------------------------------------------------------------------------:| 
+| p3_final.ipynb   			| create and train the model using udacity data   													| 
+| p3_patch.ipynb    	 	| create and train the model using recovery data which I additionally collected 					|
+| drive_yuv.py				| driving the car in autonomous mode																|
+| model_v3_patch_v6.h5 		| model 																							|
+|  README.md	 	 	  	| 																									|
 
 
 * p3_final.ipynb and p3_patch.ipynb are same. I use different directories and different sub-sampling parameters for different data.
@@ -49,10 +49,12 @@ My project includes the following files:
      file = cv2.cvtColor( resized , cv2.COLOR_BGR2YUV)
 ```
 
-* model_v3_patch_v6.h5 
-  : https://drive.google.com/open?id=0B3qIpWd3o2CxeDdxaDlzTHBhOHM
-  additional model
-  : https://drive.google.com/file/d/0B3qIpWd3o2CxcmZWTVNvOW9KS28/view?usp=sharing
+*
+  
+| Model        				|     Link	        					  					  										| 
+|:-------------------------:|:-------------------------------------------------------------------------------------------------:| 
+| model_v3_patch_v6.h5    	| https://drive.google.com/open?id=0B3qIpWd3o2CxeDdxaDlzTHBhOHM										| 
+|     	 					| https://drive.google.com/file/d/0B3qIpWd3o2CxcmZWTVNvOW9KS28/view?usp=sharing 					|
   
 
 I used the 1st track to test.
@@ -64,9 +66,11 @@ Using the Udacity provided simulator and my drive.py file, the car can be driven
 python drive_yuv.py model_v3_patch_v6.h5
 ```
 
-https://github.com/jongchul/self-driving-car-nd/blob/master/p3/run1.mp4
-#https://github.com/jongchul/self-driving-car-nd/blob/master/p3/movie.mp4
-  
+| Model        				|     Link	        					  					  										| 
+|:-------------------------:|:-------------------------------------------------------------------------------------------------:| 
+| model_v3_patch_v6.h5    	| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/run1.mp4							| 
+|     	 					| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/movie.mp4 							|
+
 
 
 ###Model Architecture and Training Strategy
