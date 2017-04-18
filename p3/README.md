@@ -27,7 +27,7 @@
 
 ---
 
-Model Architecture
+**Model Architecture**
 
 Instead of using the NVIDIA architecture from their paper (5 convolutional layers, use convolutional strides rather than pooling, 3 fully connected layers) or the comma.ai architecture (3 convolutional layers, use convolutional strides rather than pooling, 1 fully connected layer), I ended up 4 convolutional layers and 2 fully connected layers and I decided to keep max pooling as a way of allowing the model to learn generailized behavior.
 
@@ -45,7 +45,7 @@ The model used an adam optimizer, so the learning rate was not tuned manually.
 ![alt text][image1]
 
 ---
-Data Downsampling
+**Data Downsampling**
 
 I used udacity data to train my model. 0.35, steering anglie shift value, was used for left and right images. 
 (The code for this step is contained from the third code cell of the IPython notebook, p3_final.ipynb) 
@@ -77,7 +77,7 @@ reference:
 https://github.com/jeremy-shannon/CarND-Behavioral-Cloning-Project
 
 ---
-Preprocessing
+**Preprocessing**
 
 I used udacity data to train my model. Udacity data consists of center, left, right side camera images. 
 I used 0.35, -0.35 steering angle offset for left and right side camera images.
@@ -113,7 +113,7 @@ To augment the data sat, I did
 (The code for this step is contained from the 14th to 16th code cell of the IPython notebook, p3_final.ipynb)
 
 ---
-Training 
+**Training**
 
 I used udacity data and recovery data to train my model. First I split udacity data into train and validation set. I used 256 batch size and 2~3 epochs. The result were slightly  different. Some models ran better than other models. I saved the model which showed better performance on the simulator with versioning. And I restored the model and trained it again with recovery data in similar way to train the model with udacity data. If the retrained model looked better, I mean it keep distance from the wall on the problem area, I saved it. I tried several times and finally my model run on the 1st track without problem. 
 
@@ -125,7 +125,7 @@ To check downsampling result, I used seperated ipython notebook file.
 (The code for this step is contained from the 18th to 20th code cell of the IPython notebook, p3_final.ipynb)
 
 ---
-Code submission
+**Code submission**
 
 My project includes the following files:
 
