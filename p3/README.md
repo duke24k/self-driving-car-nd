@@ -1,11 +1,3 @@
-#**Behavioral Cloning** 
-
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
-
 **Behavioral Cloning Project**
 
 The goals / steps of this project are the following:
@@ -35,28 +27,40 @@ The goals / steps of this project are the following:
 
 
 
-## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
-
 ---
-###Files Submitted & Code Quality
+
 
 ####1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
 * p3_final.ipynb - containing the script to create and train the model using udacity data
-* p3_patch.ipynb - containing the script to create and train the model using data which I collected
-* drive_yuv.py - driving the car in autonomous mode
-* https://drive.google.com/open?id=0B3qIpWd3o2CxeDdxaDlzTHBhOHM
-  https://drive.google.com/file/d/0B3qIpWd3o2CxcmZWTVNvOW9KS28/view?usp=sharing
+* p3_patch.ipynb - containing the script to create and train the model using data which I additionally collected. 
+
+    p3_final.ipynb and p3_patch.ipynb are same except sub-sampling logic, which I use different directories and different 
+    sub-sampling parameters for different data.
+
+* drive_yuv.py - driving the car in autonomous mode. I added below codes to resize image and convert color space to YUV.
+                                                     
+     resized = cv2.resize( np.asarray(image), (320, 160))
+     file = cv2.cvtColor( resized , cv2.COLOR_BGR2YUV)
+
+
+* model_v3_patch_v6.h5 
+  : https://drive.google.com/open?id=0B3qIpWd3o2CxeDdxaDlzTHBhOHM
+  model.h5.30epoch_bump_smoother 
+  : https://drive.google.com/file/d/0B3qIpWd3o2CxcmZWTVNvOW9KS28/view?usp=sharing
   - containing a trained convolution neural network 
+  
 * README.md - summarizing the results
 
 ####2. Submission includes functional code
-Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
+Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the 1st track by executing 
 ```sh
 python drive_yuv.py model_v3_patch_v6.h5
 ```
+I used 
+  - Screen resolution : 800*600  
+  - graphic quailtiy : Simple
 
 ####3. Submission code is usable and readable
 
@@ -66,19 +70,20 @@ The p3_final.ipynb, p3_patch.ipynb contain the code for training and saving the 
 
 ####1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (p3_final.ipynb cell 2) 
+My model consists of a convolution neural network with 5x5, 3x3 filter sizes and depths between 24 and 64 
+The code for this step is contained in the 2th code cells of the IPython notebook, p3_final.ipynb,p3_patch.ipynb) 
 
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+The model includes ELU layers to introduce nonlinearity and the data is cropped and normalized in the model using a Keras lambda layer. 
 
 ####2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+The model contains maxpooling in cnn layers and dropout in fcn layers  in order to reduce overfitting. 
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 ####3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually.
 
 ####4. Appropriate training data
 
@@ -90,19 +95,15 @@ For details about how I created the training data, see the next section.
 
 ####1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+The NVIDIA architecture from their paper (5 convolutional layers, use convolutional strides rather than pooling, 3 fully connected layers)
+The comma.ai architecture (3 convolutional layers, use convolutional strides rather than pooling, 1 fully connected layer)
+I ended up 4 convolutional layers and 2 fully connected layers and I decided to keep max pooling as a way of allowing the model to learn generailized behavior.
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+At the end of the process, the vehicle is able to drive autonomously around the 1st track without leaving the road.
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
+https://github.com/jongchul/self-driving-car-nd/blob/master/p3/run1.mp4
 
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
-
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+#https://github.com/jongchul/self-driving-car-nd/blob/master/p3/movie.mp4
 
 ####2. Final Model Architecture
 
