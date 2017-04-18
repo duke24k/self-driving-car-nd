@@ -117,7 +117,7 @@ To augment the data sat, I did
 
 I used udacity data and recovery data to train my model. First I split udacity data into train and validation set. I used 256 batch size and 2~3 epochs. The result were slightly  different. Some models ran better than other models. I saved the model which showed better performance on the simulator with versioning. And I restored the model and trained it again with recovery data in similar way to train the model with udacity data. If the retrained model looked better, I mean it keep distance from the wall on the problem area, I saved it. I tried several times and finally my model run on the 1st track without problem. 
 
-To check downsampling result, I used seperated ipython notebook file. 
+The code uses a Python generator and to check downsampling result, I used seperated ipython notebook file. 
 
 - p3_final.ipynb 
 - p3_patch.ipynb
