@@ -1,13 +1,5 @@
 **Behavioral Cloning Project**
 
-The goals / steps of this project are the following:
-* Use the simulator to collect data of good driving behavior
-* Build, a convolution neural network in Keras that predicts steering angles from images
-* Train and validate the model with a training and validation set
-* Test that the model successfully drives around track one without leaving the road
-* Summarize the results with a written report
-
-
 [//]: # (Image References)
 
 [image1]: ./examples/model.png "Model Visualization"
@@ -49,9 +41,9 @@ My project includes the following files:
      file = cv2.cvtColor( resized , cv2.COLOR_BGR2YUV)
 ```
 
-*
+* Model
   
-| Model        				|     Link	        					  					  										| 
+| Model        				|     Download Link	        					  					  										| 
 |:-------------------------:|:-------------------------------------------------------------------------------------------------:| 
 | model_v3_patch_v6.h5    	| https://drive.google.com/open?id=0B3qIpWd3o2CxeDdxaDlzTHBhOHM										| 
 |     	 					| https://drive.google.com/file/d/0B3qIpWd3o2CxcmZWTVNvOW9KS28/view?usp=sharing 					|
@@ -66,7 +58,7 @@ Using the Udacity provided simulator and my drive.py file, the car can be driven
 python drive_yuv.py model_v3_patch_v6.h5
 ```
 
-| Model        				|     Link	        					  					  										| 
+| Model        				|     Record Download Link	        	  					  										| 
 |:-------------------------:|:-------------------------------------------------------------------------------------------------:| 
 | model_v3_patch_v6.h5    	| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/run1.mp4							| 
 |     	 					| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/movie.mp4 							|
