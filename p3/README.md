@@ -41,13 +41,13 @@ My project includes the following files:
 |  README.md	 	 	  	| 																					|
 
 
-* p3_final.ipynb and p3_patch.ipynb are same except some part sub-sampling logic, which I use different directories and different 
-  sub-sampling parameters for different data.
+* p3_final.ipynb and p3_patch.ipynb are same. I use different directories and different sub-sampling parameters for different data.
 
 * drive_yuv.py is same to drive.py which udacity provides. I added below codes to resize image and convert color space to YUV.
-                                                     
+```sh                                                     
      resized = cv2.resize( np.asarray(image), (320, 160))
      file = cv2.cvtColor( resized , cv2.COLOR_BGR2YUV)
+```
 
 * model_v3_patch_v6.h5 
   : https://drive.google.com/open?id=0B3qIpWd3o2CxeDdxaDlzTHBhOHM
