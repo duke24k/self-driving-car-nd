@@ -47,7 +47,7 @@ The model used an adam optimizer, so the learning rate was not tuned manually.
 ---
 Data Downsampling
 
-I used udacity data to train my model. 0.35, steering anglie shift value, is used for left and right images. 
+I used udacity data to train my model. 0.35, steering anglie shift value, was used for left and right images. 
 (The code for this step is contained from the third code cell of the IPython notebook, p3_final.ipynb) 
 
 
