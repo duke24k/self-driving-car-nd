@@ -85,7 +85,7 @@ I used 35, -35 offset for left and right side camera images.
 ![alt text][image8]
 
 
-The model did not run after the first training. I trained my model several times and made the model run on the first track except only one problem area. I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover. These images show what a recovery looks like pulling away from the wall. 
+The model did not run after the first training. I trained my model several times and made the model run on the first track except only one problem area. I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover on the problem area. These images show what a recovery looks like pulling away from the wall. 
 
 ![alt text][image3]
 ![alt text][image4]
