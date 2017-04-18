@@ -110,7 +110,11 @@ To augment the data sat, I did
 
 ####Training 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used udacity data and recovery data to train my model. First I split udacity data into train and validation set. I used 256 batch size and 2~3 epochs. And if the model showes better performance on the simulator, I save it with versioning. And I restore the model and trained it again with recovery data in similar way to train the model with udacity data. If the retrained model looks better, I mean it keep distance from the wall, I saved it. I tried several times and finally my model run on the 1st track without problem. 
+To check downsampling result, I used seperated ipython notebook file. 
+
+- p3_final.ipynb 
+- p3_patch.ipynb
 
 
 ###Code submission
