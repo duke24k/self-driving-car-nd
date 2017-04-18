@@ -163,9 +163,9 @@ the car can be driven autonomously around the 1st track by executing
 python drive_yuv.py model_v3_patch_v6.h5
 ```
 
-| Model        				|     Driving Record 	        	  					  											| 
+| Driving Record       		|     Download Link 	        	  					  											| 
 |:-------------------------:|:-------------------------------------------------------------------------------------------------:| 
-| model_v3_patch_v6.h5    	| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/run1.mp4							| 
+| run1.mp4      			| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/run1.mp4							| 
 |     	 					| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/movie.mp4 							|
 
 
