@@ -47,9 +47,12 @@ The model used an adam optimizer, so the learning rate was not tuned manually.
 ---
 Data Downsampling
 
-I used udacity data to train my model. 35 degree shift is used for left and right images. 
-The data is highly toward 0, 35, -35, steering angles. I did downsampling work as below. 
-downsampling result is slightly different and I tried to make similar mean value of original data.
+I used udacity data to train my model. 0.35, steering anglie shift value, is used for left and right images. 
+(The code for this step is contained from the third code cell of the IPython notebook, p3_final.ipynb) 
+
+
+The data is highly toward 0, 0.35, -0.35, steering angles. I did downsampling work as below. 
+downsampling results were slightly different and I tried to make mean value of downsampled data similar to mean value of original data.
 
 
 1. udacity data
@@ -77,7 +80,7 @@ https://github.com/jeremy-shannon/CarND-Behavioral-Cloning-Project
 Preprocessing
 
 I used udacity data to train my model. Udacity data consists of center, left, right side camera images. 
-I used 35, -35 offset for left and right side camera images.
+I used 0.35, -0.35 steering angle offset for left and right side camera images.
 
 
 ![alt text][image6]
@@ -95,7 +98,8 @@ The model did not run after the first training. I trained my model several times
 To augment the data sat, I did
 - convert color space to YUV
 - random darken
-- vertical shift and/or horizontal shift
+- vertical shift only (with udacity data)
+- vertiacal and horizontal shift (with recovery data. manupulating more data with small data.)
 - horizontal flipping
 - crop
 
@@ -111,7 +115,8 @@ To augment the data sat, I did
 ---
 Training 
 
-I used udacity data and recovery data to train my model. First I split udacity data into train and validation set. I used 256 batch size and 2~3 epochs. And if the model showes better performance on the simulator, I save it with versioning. And I restore the model and trained it again with recovery data in similar way to train the model with udacity data. If the retrained model looks better, I mean it keep distance from the wall, I saved it. I tried several times and finally my model run on the 1st track without problem. 
+I used udacity data and recovery data to train my model. First I split udacity data into train and validation set. I used 256 batch size and 2~3 epochs. The result slightly different. Some models run better than other models. And if, I saved the model which showed better performance on the simulator with versioning. And I restore the model and trained it again with recovery data in similar way to train the model with udacity data. If the retrained model looks better, I mean it keep distance from the wall on the problem area, I saved it. I tried several times and finally my model run on the 1st track without problem. 
+
 To check downsampling result, I used seperated ipython notebook file. 
 
 - p3_final.ipynb 
@@ -128,8 +133,9 @@ My project includes the following files:
 | p3_final.ipynb   			| create and train the model using udacity data   													| 
 | p3_patch.ipynb    	 	| create and train the model using recovery data which I additionally collected 					|
 | drive_yuv.py				| driving the car in autonomous mode																|
-| model_v3_patch_v6.h5 		| model 																							|
-|  README.md	 	 	  	| 																									|
+  model_v3_patch_v6.h5		| model																								|
+| run1.mp4					| driving record																					|
+| README.md	 	 	  	| 																									|
 
 
 * p3_final.ipynb and p3_patch.ipynb are same. I use different directories and different sub-sampling parameters for different data.
