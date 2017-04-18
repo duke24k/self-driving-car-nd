@@ -169,6 +169,8 @@ python drive_yuv.py model_v3_patch_v6.h5
 | run1.mp4      			| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/run1.mp4							| 
 |     	 					| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/movie.mp4 							|
 
+<video src="run1.mp4" width="320" height="200" controls preload></video>
+
 
 
 
