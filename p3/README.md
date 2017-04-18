@@ -147,6 +147,12 @@ My project includes the following files:
      file = cv2.cvtColor( resized , cv2.COLOR_BGR2YUV)
 ```
 
+| Driving Record       		|     Download Link 	        	  					  											| 
+|:-------------------------:|:-------------------------------------------------------------------------------------------------:| 
+| run1.mp4      			| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/run1.mp4							| 
+|     	 					| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/movie.mp4 							|
+
+
 * Model
   
 | Model        				|     Download Link	        					  					  										| 
@@ -164,12 +170,9 @@ the car can be driven autonomously around the 1st track by executing
 python drive_yuv.py model_v3_patch_v6.h5
 ```
 
-| Driving Record       		|     Download Link 	        	  					  											| 
-|:-------------------------:|:-------------------------------------------------------------------------------------------------:| 
-| run1.mp4      			| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/run1.mp4							| 
-|     	 					| https://github.com/jongchul/self-driving-car-nd/blob/master/p3/movie.mp4 							|
 
-<video src="run1.mp4" width="320" height="200" controls preload></video>
+
+
 
 
 
