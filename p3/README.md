@@ -48,19 +48,27 @@ The model used an adam optimizer, so the learning rate was not tuned manually.
 ###Data Downsampling
 
 I used udacity data to train my model. 35 degree shift is used for left and right images. 
-The data is highly toward 0, 35, -35, steering angles. Therefore I downsampled the data using 
+The data is highly toward 0, 35, -35, steering angles. I did downsampling work as below. 
+downsampling result is slightly different and I tried to make similar mean value of original data.
 
-1. downsampling
+
+1. udacity data
+- total data points 24108 
+- mean value of the data 0.00406964406483 
+
+2. downsampling
 - 23 bins 
 - target value : 0.5
 - 1/ (each bin value / target)
 
-2. additional downsampling : centered bin reszie with scale factor 
--  left_cut = 2.5, right_cut = 2.5, center_cut= 0.7 (scale factor)
+3. additional downsampling : centered bin reszie with scale factor 
+-  left_cut, right_cut, center_cut(scale factor)
 
 
 ![alt text][image13]
 ![alt text][image14]
+
+The code for this step is contained from the 7th to 13th  code cell of the IPython notebook, p3_final.ipynb) 
 
 reference:
 https://github.com/jeremy-shannon/CarND-Behavioral-Cloning-Project
@@ -69,12 +77,15 @@ https://github.com/jeremy-shannon/CarND-Behavioral-Cloning-Project
 ####Preprocessing
 
 I used udacity data to train my model. Udacity data consists of center, left, right side camera images. 
-I 
+I used 35, -35 offset for left and right side camera images.
+
 
 ![alt text][image6]
 ![alt text][image7]
 ![alt text][image8]
 
+
+The model did not run after the first training. I trained my model several times and made the model run on the first track. However, it  
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
 
 ![alt text][image3]
