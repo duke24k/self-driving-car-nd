@@ -45,18 +45,31 @@ The model used an adam optimizer, so the learning rate was not tuned manually.
 ![alt text][image1]
 
 
-###Data Sub Sampling
+###Data Downsampling
 
-https://github.com/jeremy-shannon/CarND-Behavioral-Cloning-Project/blob/master/model.py
+I used udacity data to train my model. 35 degree shift is used for left and right images. 
+The data is highly toward 0, 35, -35, steering angles. Therefore I downsampled the data using 
+
+1. downsampling
+- 23 bins 
+- target value : 0.5
+- 1/ (each bin value / target)
+
+2. additional downsampling : centered bin reszie with scale factor 
+-  left_cut = 2.5, right_cut = 2.5, center_cut= 0.7 (scale factor)
 
 
 ![alt text][image13]
 ![alt text][image14]
 
+reference:
+https://github.com/jeremy-shannon/CarND-Behavioral-Cloning-Project
+
 
 ####Preprocessing
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+I used udacity data to train my model. Udacity data consists of center, left, right side camera images. 
+I 
 
 ![alt text][image6]
 ![alt text][image7]
