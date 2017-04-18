@@ -126,6 +126,7 @@ To check downsampling result, I used seperated ipython notebook file.
 
 ---
 Code submission
+
 My project includes the following files:
 
 | File         				|     Description	        					  					  								| 
