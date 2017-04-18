@@ -32,6 +32,19 @@ The goals / steps of this project are the following:
 
 ####1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
+
+
+| File         				|     Description	        					  					  				| 
+|:-------------------------:|:---------------------------------------------------------------------------------:| 
+| p3_final.ipynb   			| create and train the model using udacity data   									| 
+| p3_patch.ipynb    	 	| create and train the model using recovery data which I additionally collected 	|
+| drive_yuv.py				| driving the car in autonomous mode												|
+| model_v3_patch_v6.h5 		| model 																			|
+|  README.md	 	 	  	| 																					|
+
+
+
+
 My project includes the following files:
 * p3_final.ipynb - containing the script to create and train the model using udacity data
 * p3_patch.ipynb - containing the script to create and train the model using data which I additionally collected. 
