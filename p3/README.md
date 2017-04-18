@@ -12,10 +12,10 @@
 [image7]: ./examples/udacity2.jpg "Recovery Image"
 [image8]: ./examples/udacity3.jpg "Recovery Image"
 
-[image9]: ./examples/raw.png "Recovery Image"
-[image10]: ./examples/yuv.png "Recovery Image"
-[image11]: ./examples/flip.png "Recovery Image"
-[image12]: ./examples/final.png "Recovery Image"
+[image9]: ./examples/raw.jpg "Recovery Image"
+[image10]: ./examples/yuv.jpg "Recovery Image"
+[image11]: ./examples/flip.jpg "Recovery Image"
+[image12]: ./examples/final.jpg "Recovery Image"
 
 
 [image13]: ./examples/subsample1.png "Recovery Image"
