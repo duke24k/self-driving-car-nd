@@ -18,18 +18,22 @@
 [image12]: ./examples/final.png "Recovery Image"
 
 
+[image13]: ./examples/subsample1.png "Recovery Image"
+[image14]: ./examples/subsample2.png "Recovery Image"
+
+
+
+
 
 ---
 
 ###Model Architecture
 
-The NVIDIA architecture from their paper (5 convolutional layers, use convolutional strides rather than pooling, 3 fully connected layers)
-The comma.ai architecture (3 convolutional layers, use convolutional strides rather than pooling, 1 fully connected layer)
-I ended up 4 convolutional layers and 2 fully connected layers and I decided to keep max pooling as a way of allowing the model to learn generailized behavior.
+Instead of using the NVIDIA architecture from their paper (5 convolutional layers, use convolutional strides rather than pooling, 3 fully connected layers) or the comma.ai architecture (3 convolutional layers, use convolutional strides rather than pooling, 1 fully connected layer), I ended up 4 convolutional layers and 2 fully connected layers and I decided to keep max pooling as a way of allowing the model to learn generailized behavior.
 
 
 My model consists of a convolution neural network with 5x5, 3x3 filter sizes and depths of 24, 36, 48, 64. 
-The code for this step is contained in the 2th code cells of the IPython notebook, p3_final.ipynb,p3_patch.ipynb) 
+The code for this step is contained in the 2th code cells of the IPython notebook, p3_final.ipynb) 
 The model includes ELU layers to introduce nonlinearity and the data is cropped and normalized in the model using a Keras lambda layer. 
 
 In order to reduce overfitting, the model contains maxpooling in cnn layers and dropout in fcn layers  
@@ -44,7 +48,8 @@ The model used an adam optimizer, so the learning rate was not tuned manually.
 ###Data Sub Sampling
 
 
-
+![alt text][image13]
+![alt text][image14]
 
 
 ####Preprocessing
