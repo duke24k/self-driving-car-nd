@@ -29,6 +29,7 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ---
 **Provide an example of a distortion-corrected image**
+
  The code for this step is contained from the second to the 6th code cell of the IPython notebook, p4_submit.ipynb 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
 ![alt text][image2]
