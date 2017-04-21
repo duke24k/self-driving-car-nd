@@ -75,31 +75,41 @@ This resulted in the following source and destination points:
 | 700, 470      | 1050, 0       |
 | 1160, 720     | 1130, 720     |
 
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image. I just select center triangle area of intereset for perspective transform. 
 
 ![alt text][image4]
 
-####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+---
+**fit lane lines**
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+To fit my lane lines with a 2nd order polynomial kinda like this,  I did some other stuff.
+(steps at lines 77 through 249 in utils.py)
+
+- I made search window in vertical direction, devided by 6.
+- find multiple vetical peaks in left and right side of the transformed image
+- search more pixels based on these peaks within 200 pixels, window radius.
 
 ![alt text][image5]
 
-####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+reference: https://github.com/jessicayung/self-driving-car-nd/tree/master/p4-advanced-lane-lines
 
-####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+---
+**the radius of curvature of the lane and the position of the vehicle with respect to center**
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+The code for this step is contained from the 17th to the 19th code cell of the IPython notebook, p4_submit.ipynb 
+
+- curvature = (left_curverad + right_curverad) / 2
+- center = (1.5 * left_second_order_poly - right_second_order_poly) / 2
+
+---
+**example image**
 
 ![alt text][image6]
 
 ---
 
-###Pipeline (video)
-
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+**Pipeline (video)**
 
 Here's a [link to my video result](./project_output_colour.mp4)
 

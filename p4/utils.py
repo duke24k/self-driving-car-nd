@@ -119,8 +119,6 @@ def collapse_into_single_arrays(leftx, lefty, rightx, righty, histogram):
     return leftx, lefty, rightx, righty, histogram
 
 
-
-
 def histogram_pixels(warped_thresholded_image, offset=50, steps=6,
                      window_radius=200, medianfilt_kernel_size=51,
                      horizontal_offset=50):
