@@ -2,14 +2,28 @@ import numpy as np
 import cv2
 from scipy import signal
 
-def convert_binary(img, s_thresh=(170, 255), sx_thresh=(20, 100), sy_thresh=(20, 100)):
+def convert_binary(img, s_thresh=(170, 255), sx_thresh=(20, 100), sy_thresh=None, l_thresh=None):
     # Grayscale image
     # NOTE: we already saw that standard grayscaling lost color information for the lane lines
     # Explore gradients in other colors spaces / color channels to see what might work better
-    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+#    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    
+    # hls color channel
+    hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS).astype(np.float)
+    
+    l_channel = hls[:,:,1]
+    s_channel = hls[:,:,2]
+
+    # Threshold hls, s channel
+    s_binary = np.zeros_like(s_channel)
+    s_binary[(s_channel >= s_thresh[0]) & (s_channel <= s_thresh[1])] = 1
 
     # Sobel x
-    sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0) # Take the derivative in x
+#    sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0) # Take the derivative in x
+#    abs_sobelx = np.absolute(sobelx) # Absolute x derivative to accentuate lines away from horizontal
+#    scaled_sobel = np.uint8(255*abs_sobelx/np.max(abs_sobelx))
+    
+    sobelx = cv2.Sobel(l_channel, cv2.CV_64F, 1, 0) # Take the derivative in x
     abs_sobelx = np.absolute(sobelx) # Absolute x derivative to accentuate lines away from horizontal
     scaled_sobel = np.uint8(255*abs_sobelx/np.max(abs_sobelx))
 
@@ -19,36 +33,45 @@ def convert_binary(img, s_thresh=(170, 255), sx_thresh=(20, 100), sy_thresh=(20,
     
     
     # Sobel y
-    sobely = cv2.Sobel(gray, cv2.CV_64F, 0, 1) # Take the derivative in y
-    abs_sobely = np.absolute(sobely) # Absolute x derivative to accentuate lines away from horizontal
-    scaled_sobely = np.uint8(255*abs_sobely/np.max(abs_sobely))
-
-    # Threshold x gradient
-    sybinary = np.zeros_like(scaled_sobely)
-    sybinary[(scaled_sobely >= sy_thresh[0]) & (scaled_sobely <= sy_thresh[1])] = 1
+    if sy_thresh:
     
+        sobely = cv2.Sobel(gray, cv2.CV_64F, 0, 1) # Take the derivative in y
+        abs_sobely = np.absolute(sobely) # Absolute x derivative to accentuate lines away from horizontal
+        scaled_sobely = np.uint8(255*abs_sobely/np.max(abs_sobely))
+
+    # Threshold y gradient
+        sybinary = np.zeros_like(scaled_sobely)
+        sybinary[(scaled_sobely >= sy_thresh[0]) & (scaled_sobely <= sy_thresh[1])] = 1
     
 
-    # Threshold colour channel
-
-    # Convert to HLS colour space and separate the S channel
-    # Note: img is the undistorted image
-    hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
-    s_channel = hls[:,:,2]
-
-    # Cont'd: Threshold colour channel
-    s_binary = np.zeros_like(s_channel)
-    s_binary[(s_channel >= s_thresh[0]) & (s_channel <= s_thresh[1])] = 1
+    # Threshold hls, l channel
+    
+    if l_thresh:
+    
+        l_channel = hls[:,:,1]
+        l_binary = np.zeros_like(l_channel)
+        l_binary[(l_channel >= l_thresh[0]) & (l_channel <= l_thresh[1])] = 1
 
     # Stack each channel to view their individual contributions in green and blue respectively
     # This returns a stack of the two binary images, whose components you can see as different colors
-    # color_binary = np.dstack(( np.zeros_like(sxbinary), sxbinary, s_binary))
+    color_binary = np.dstack(( np.zeros_like(sxbinary), sxbinary, s_binary))
 
     # Combine the two binary thresholds
     combined_binary = np.zeros_like(sxbinary)
-    combined_binary[(s_binary == 1) | (sxbinary == 1) | (sybinary == 1)] = 1
+    
+    if(l_thresh and sy_thresh):
+        combined_binary[(s_binary == 1) & (l_binary == 1) | (sxbinary == 1) & (sybinary == 1) ] = 1
+    
+    if(l_thresh and not sy_thresh):
+        combined_binary[(s_binary == 1) & (l_binary == 1) | (sxbinary == 1) ] = 1
+        
+    if(sy_thresh and not l_thresh):
+        combined_binary[(l_binary == 1) | (sxbinary == 1) & (sybinary == 1) ] = 1
+        
+    if(not sy_thresh and not l_thresh):
+        combined_binary[(s_binary == 1) | (sxbinary == 1) ] = 1
 
-    return combined_binary
+    return combined_binary, color_binary 
 
 def region_of_interest(img, vertices):
     """
