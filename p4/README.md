@@ -22,8 +22,8 @@ The goals / steps of this project are the following:
 [image2]: ./examples/undistortion.png "Road Transformed"
 [image3]: ./examples/binary.png "Binary Example"
 [image4]: ./examples/warp.png "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
+[image5]: ./examples/lane.png "Fit Visual"
+[image6]: ./examples/output.png "Output"
 [video1]: ./project_output_colour.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
