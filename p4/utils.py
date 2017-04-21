@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 from scipy import signal
 
-def pipeline(img, s_thresh=(170, 255), sx_thresh=(20, 100)):
+def convert_binary(img, s_thresh=(170, 255), sx_thresh=(20, 100), sy_thresh=(20, 100)):
     # Grayscale image
     # NOTE: we already saw that standard grayscaling lost color information for the lane lines
     # Explore gradients in other colors spaces / color channels to see what might work better
@@ -16,6 +16,18 @@ def pipeline(img, s_thresh=(170, 255), sx_thresh=(20, 100)):
     # Threshold x gradient
     sxbinary = np.zeros_like(scaled_sobel)
     sxbinary[(scaled_sobel >= sx_thresh[0]) & (scaled_sobel <= sx_thresh[1])] = 1
+    
+    
+    # Sobel y
+    sobely = cv2.Sobel(gray, cv2.CV_64F, 0, 1) # Take the derivative in y
+    abs_sobely = np.absolute(sobely) # Absolute x derivative to accentuate lines away from horizontal
+    scaled_sobely = np.uint8(255*abs_sobely/np.max(abs_sobely))
+
+    # Threshold x gradient
+    sybinary = np.zeros_like(scaled_sobely)
+    sybinary[(scaled_sobely >= sy_thresh[0]) & (scaled_sobely <= sy_thresh[1])] = 1
+    
+    
 
     # Threshold colour channel
 
@@ -30,11 +42,11 @@ def pipeline(img, s_thresh=(170, 255), sx_thresh=(20, 100)):
 
     # Stack each channel to view their individual contributions in green and blue respectively
     # This returns a stack of the two binary images, whose components you can see as different colors
-    color_binary = np.dstack(( np.zeros_like(sxbinary), sxbinary, s_binary))
+    # color_binary = np.dstack(( np.zeros_like(sxbinary), sxbinary, s_binary))
 
     # Combine the two binary thresholds
     combined_binary = np.zeros_like(sxbinary)
-    combined_binary[(s_binary == 1) | (sxbinary == 1)] = 1
+    combined_binary[(s_binary == 1) | (sxbinary == 1) | (sybinary == 1)] = 1
 
     return combined_binary
 
@@ -291,7 +303,7 @@ def add_figures_to_image(img, curvature, vehicle_position, min_curvature, left_c
     cv2.putText(img, 'Right poly coefficients = %.3f %.3f %.3f' % (right_coeffs[0], right_coeffs[1], right_coeffs[2]), (50, 250), font, 1, (255, 255, 255), 2)
     
 def plausible_curvature(left_curverad, right_curverad):
-    if right_curverad < 500 or left_curverad < 500:
+    if right_curverad < 5 or left_curverad < 5:
         return False
     else:
         return True
@@ -301,7 +313,7 @@ def plausible_continuation_of_traces(left_coeffs, right_coeffs, prev_left_coeffs
         return True
     b_left = np.absolute(prev_left_coeffs[1] - left_coeffs[1])
     b_right = np.absolute(prev_right_coeffs[1] - right_coeffs[1])
-    if b_left > 0.5 or b_right > 0.5:
+    if b_left > 0.5 or b_right > 1.0:
         return False
     else:
         return True
