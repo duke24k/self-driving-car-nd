@@ -73,37 +73,6 @@ def convert_binary(img, s_thresh=(170, 255), sx_thresh=(20, 100), sy_thresh=None
 
     return combined_binary, color_binary 
 
-def region_of_interest(img, vertices):
-    """
-    Applies an image mask.
-    
-    Only keeps the region of the image defined by the polygon
-    formed from `vertices`. The rest of the image is set to black.
-    """
-    #defining a blank mask to start with
-    mask = np.zeros_like(img)   
-    
-    #defining a 3 channel or 1 channel color to fill the mask with depending on the input image
-    
-    if len(img.shape) > 2:
-        channel_count = img.shape[2]  # i.e. 3 or 4 depending on your image
-        ignore_mask_color = (255,) * channel_count
-#        ignore_mask_color = (200,) * channel_count
-    else:
-        ignore_mask_color = 255
-#        ignore_mask_color = 200    
-
-    # cv2.fillPoly - filling pixels inside the polygon defined by "vertices" with the fill color    
-    # cv2.fillConvexPoly - filling pixels inside the convex polygon defined by "vertices" with the fill color  
-
-    cv2.fillPoly(mask, vertices, ignore_mask_color)  
-#    cv2.fillConvexPoly(mask, vertices, ignore_mask_color)
-    
-    #returning the image only where mask pixels are nonzero
-    masked_image = cv2.bitwise_and(img, mask)
-    return masked_image
-
-
 
 def get_pixel_in_window(img, x_center, y_center, size):
     """
@@ -164,18 +133,13 @@ def histogram_pixels(warped_thresholded_image, offset=50, steps=6,
     histograms = []
 
     # Parameters
-    height = warped_thresholded_image.shape[0]
- #   print("height is : %s " % height)
     
+    height = warped_thresholded_image.shape[0]    
     width = warped_thresholded_image.shape[1]
     half_frame = warped_thresholded_image.shape[1] // 2
-    
-#    pixels_per_step = offset_height / steps
     pixels_per_step = height / steps
-    
     half = int(width/2)
     
- #   print(" pixels_per_step : %s " % pixels_per_step)
 
     for step in range(steps):
         
@@ -188,20 +152,10 @@ def histogram_pixels(warped_thresholded_image, offset=50, steps=6,
         window_start_y = height - (step * pixels_per_step) 
         window_end_y = window_start_y - pixels_per_step      
         
-   #     print("window_start_y %s " % window_start_y)
-   #     print("window_end_y %s " % window_end_y)
-
         # Take a count of all the pixels at each x-value in the horizontal slice
-#        histogram = np.sum(warped_thresholded_image[int(window_end_y):int(window_start_y), int(horizontal_offset):int(width - #horizontal_offset)], axis=0)
+
         histogram = np.sum(warped_thresholded_image[int(window_end_y):int(window_start_y), int(0.0):int(width)], axis=0)
-        
-   #     print("step %s, histogram created" % step)
-   #     print("histogram size %s" % histogram.size)
-        
-#        histograms.append(histogram)
-        
-        #histogram range: width - horizontal_offset
-        
+               
         # plt.plot(histogram)
 
         # Smoothen the histogram and removing noise
@@ -210,8 +164,6 @@ def histogram_pixels(warped_thresholded_image, offset=50, steps=6,
         
         histograms.append(histogram_smooth)
         
-   #     print("histogram_smooth size %s" % histogram_smooth.size)
-
         # plt.plot(histogram_smooth)
 
         # Identify the left and right peaks
@@ -223,13 +175,11 @@ def histogram_pixels(warped_thresholded_image, offset=50, steps=6,
         if len(left_peaks) > 0:
             left_peak = max(left_peaks)
             left_x_window_centres.append(left_peak)
-  #          print("left peak exists")
 
         if len(right_peaks) > 0:
- #           right_peak = max(right_peaks) + half_frame
             right_peak = max(right_peaks) + half
             right_x_window_centres.append(right_peak)
- #           print("right peak exists")
+
 
         # Add coordinates to window centres
 
@@ -256,6 +206,7 @@ def histogram_pixels(warped_thresholded_image, offset=50, steps=6,
  
     return collapse_into_single_arrays(left_x, left_y, right_x, right_y,  histograms)
 
+
 def fit_second_order_poly(indep, dep, return_coeffs=False):
     fit = np.polyfit(indep, dep, 2)
     fitdep = fit[0]*indep**2 + fit[1]*indep + fit[2]
@@ -267,9 +218,7 @@ def fit_second_order_poly(indep, dep, return_coeffs=False):
 def lane_poly(yval, poly_coeffs):
     """Returns x value for poly given a y-value.
     Note here x = Ay^2 + By + C."""
-    
-#    print("lane_poly is called")
-    
+       
     return poly_coeffs[0]*yval**2 + poly_coeffs[1]*yval + poly_coeffs[2]
 
 def draw_poly(img, poly, poly_coeffs, steps, color=[255, 0, 0], thickness=10, dashed=False):
@@ -340,3 +289,33 @@ def plausible_continuation_of_traces(left_coeffs, right_coeffs, prev_left_coeffs
         return False
     else:
         return True
+    
+def region_of_interest(img, vertices):
+    """
+    Applies an image mask.
+    
+    Only keeps the region of the image defined by the polygon
+    formed from `vertices`. The rest of the image is set to black.
+    """
+    #defining a blank mask to start with
+    mask = np.zeros_like(img)   
+    
+    #defining a 3 channel or 1 channel color to fill the mask with depending on the input image
+    
+    if len(img.shape) > 2:
+        channel_count = img.shape[2]  # i.e. 3 or 4 depending on your image
+        ignore_mask_color = (255,) * channel_count
+#        ignore_mask_color = (200,) * channel_count
+    else:
+        ignore_mask_color = 255
+#        ignore_mask_color = 200    
+
+    # cv2.fillPoly - filling pixels inside the polygon defined by "vertices" with the fill color    
+    # cv2.fillConvexPoly - filling pixels inside the convex polygon defined by "vertices" with the fill color  
+
+    cv2.fillPoly(mask, vertices, ignore_mask_color)  
+#    cv2.fillConvexPoly(mask, vertices, ignore_mask_color)
+    
+    #returning the image only where mask pixels are nonzero
+    masked_image = cv2.bitwise_and(img, mask)
+    return masked_image
