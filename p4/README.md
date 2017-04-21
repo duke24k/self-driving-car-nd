@@ -119,8 +119,10 @@ Here's a [link to my video result](./project_output_colour.mp4)
 
 **Discussion**
 
-I faced failure to draw proper lane lines on the frame no 1001 and 1002 caused from lack of lanes on the bottom of image.
-To make my lane more robust, I simply calculate right_bottom pixel - left_bottom pixel and drop lanes below 700 pixels.  
+I faced failure to draw proper lane lines on the frame no 1001 and 1002 caused from lack of right lanes on the bottom of image.
+To make my lane lines more robust, I simply calculate right_bottom pixel - left_bottom pixel and drop lane lines below 700 pixels.  
+
+The code for this step is contained in the 22th code cell of the IPython notebook, p4_submit.ipynb 
 
 ```
 - bottom = fit[0] * 720 ** 2 +  fit[1] * 720 + fit[2]
