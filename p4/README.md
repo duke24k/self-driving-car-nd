@@ -29,14 +29,14 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 ![alt text][image1]
 
 ---
-**Provide an example of a distortion-corrected image**
+**an example of a distortion-corrected image**
 
- The code for this step is contained from the second to the 6th code cell of the IPython notebook, p4_submit.ipynb 
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
+ The code for this step is contained from the second to the 6th code cell of the IPython notebook, p4_submit.ipynb. 
+
 ![alt text][image2]
 
 ---
-**create a thresholded binary image**
+**thresholded binary image**
 
 
 I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines 5 through 74 in `utils.py`).  Here's an example of my output for this step.  
@@ -98,8 +98,8 @@ reference: https://github.com/jessicayung/self-driving-car-nd/tree/master/p4-adv
 ---
 **the radius of curvature of the lane and the position of the vehicle with respect to center**
 
-The code for this step is contained from the 17th to the 19th code cell of the IPython notebook, p4_submit.ipynb 
-I follow the code which udacity provides to calculate curvature in each direction and do addtional calculation.
+The code for this step is contained from the 17th to the 19th code cell of the IPython notebook, p4_submit.ipynb. 
+I followed the code which udacity provides to calculate curvature in each direction and do addtional calculation.
 
 - curvature = (left_curverad + right_curverad) / 2
 - center = (1.5 * left_second_order_poly - right_second_order_poly) / 2
