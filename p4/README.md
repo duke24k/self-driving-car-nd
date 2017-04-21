@@ -99,7 +99,7 @@ reference: https://github.com/jessicayung/self-driving-car-nd/tree/master/p4-adv
 **the radius of curvature of the lane and the position of the vehicle with respect to center**
 
 The code for this step is contained from the 17th to the 19th code cell of the IPython notebook, p4_submit.ipynb. 
-I followed the code which udacity provides to calculate curvature in each direction and do addtional calculation.
+I followed the code which udacity provides to calculate curvature in each direction and did addtional calculation.
 
 - curvature = (left_curverad + right_curverad) / 2
 - center = (1.5 * left_second_order_poly - right_second_order_poly) / 2
@@ -120,7 +120,7 @@ Here's a [link to my video result](./project_output_colour.mp4)
 **Discussion**
 
 I faced failure to draw proper lane lines on the frame no 1001 and 1002 caused from lack of right lanes on the bottom of image.
-To make my lane lines more robust, I simply calculate right_bottom pixel - left_bottom pixel and drop lane lines below 700 pixels.  
+To make my lane lines more robust, I simply calculated (right_bottom pixel - left_bottom pixel) and dropped lane lines below 700 pixels.  
 
 The code for this step is contained in the 22th code cell of the IPython notebook, p4_submit.ipynb 
 
