@@ -12,6 +12,7 @@ Udaicyt Self Driving Car Nano Degree Project
 1.3 Behavioral Cloning
 - p3 directory
 
-1.4
+1.4 Advanced Lane Finding
+- p4 directory
 
 1.5
