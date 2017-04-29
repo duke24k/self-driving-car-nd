@@ -217,11 +217,12 @@ def slide_window(img_shape, x_start_stop=[None, None], y_start_stop=None,
     return window_list
 
 
-def create_windows(pyramid, image_size):
+def create_windows(pyramid, image_size, xy_overlap=(0.5,0.5)):
     output = []
     for w_size, y_lims in pyramid:
         windows = slide_window(image_size, x_start_stop=[None, None], y_start_stop=y_lims,
-                        xy_window=w_size, xy_overlap=(0.5, 0.5))
+                               xy_window=w_size, xy_overlap=xy_overlap)
+#                        xy_window=w_size, xy_overlap=(0.5, 0.5))
         output.append(windows)
     return output
 
