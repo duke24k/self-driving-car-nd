@@ -244,7 +244,46 @@ def apply_threshold(heatmap, threshold):
     return heatmap
 
 
-def find_cars(img, windows,  X_scaler, clf, image_size= (64,64), cutoff=0.8, 
+
+def find_cars(img, windows,  svc, image_size= (64,64), cutoff=140, 
+                            cspace='RGB', spatial_size=(32,32),  hist_bins=16, 
+                            hog_channel='ALL', orient=9, pix_per_cell=8, cell_per_block=2,car_image =False):
+    
+    
+    image = np.copy(img)
+    
+    pred_dist = []
+
+    bbox_list = []
+    jloop = len(windows)
+        
+    for j in range(jloop):
+            
+        loop = windows[j]
+        
+        for i in range(len(loop)):
+    
+            img_region = image[windows[j][i][0][1]:windows[j][i][1][1],windows[j][i][0][0]:windows[j][i][1][0]]
+        
+            resized = cv2.resize(img_region, image_size)
+        
+            my_features = extract_single_features(resized,cspace=cspace, spatial_size=spatial_size,  hist_bins=hist_bins, 
+                                                  hog_channel=hog_channel,  orient=orient, pix_per_cell=pix_per_cell,
+                                                  cell_per_block=cell_per_block)
+                
+            y_prediction = svc.decision_function(my_features)
+#            print('y_prediction is %s ' % y_prediction)
+            pred_dist.append(y_prediction)
+           
+
+            if( y_prediction >  cutoff):
+                
+                                             
+                cv2.rectangle(image,(windows[j][i][0][0],windows[j][i][0][1]),(windows[j][i][1][0],windows[j][i][1][1]),(0,0,255),6) 
+                bbox_list.append(((windows[j][i][0][0],windows[j][i][0][1]),(windows[j][i][1][0],windows[j][i][1][1])))
+    return image, bbox_list, pred_dist
+
+def find_cars_test(img, windows,  X_scaler, clf, image_size= (64,64), cutoff=0.8, 
                             cspace='RGB', spatial_size=(32,32),  hist_bins=16, 
                             hog_channel='ALL', orient=9, pix_per_cell=8, cell_per_block=2,car_image =False):
     
