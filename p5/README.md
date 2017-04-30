@@ -3,8 +3,8 @@
 [//]: # (Image References)
 [image1]: ./examples/video_hog.png
 [image2]: ./examples/heatmap.png
-[image3]: ./examples/hog_feature.png
-[image4]: ./examples/sliding_window.jpg
+[image3]: ./examples/window.png
+[image4]: ./examples/hog_feature.png
 [image5]: ./examples/bboxes_and_heat.png
 [image6]: ./examples/labels_map.png
 [image7]: ./examples/output_bboxes.png
