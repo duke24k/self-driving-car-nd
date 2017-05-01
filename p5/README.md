@@ -1,4 +1,4 @@
-** Vehicle Detection and Tracking. **
+**Vehicle Detection and Tracking.**
 
 
 [//]: # (Image References)
@@ -22,9 +22,9 @@
 
 ---
 
-**Histogram of Oriented Gradients (HOG) **
+**Histogram of Oriented Gradients (HOG)**
 
-** extracting HOG features from the training images. **
+**extracting HOG features from the training images.**
 
  The code for this step is contained from the second code cell to the of the IPython notebook file, svc_train.ipynb. 
  
