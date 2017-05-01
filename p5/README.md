@@ -22,39 +22,47 @@
 
 ---
 
-**Histogram of Oriented Gradients (HOG)**
+**I. Histogram of Oriented Gradients (HOG)**
 
 **extracting HOG features from the training images.**
 
- The code for this step is contained from the second code cell to the of the IPython notebook file, svc_train.ipynb. 
+ The code for this step is contained from the second code cell to the 5th cell of the IPython notebook file, svc_train.ipynb. 
  
-  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
+ I started by reading in all the vehicle and non-vehicle images. I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. Here is an example using the `YCrCb` color space with 1 channel and HOG parameters of `orientations=12`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
 ![alt text][image0]
 ![alt text][image1]
 
- I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. Here is an example using the `YCrCb` color space with 1 channel and HOG parameters of `orientations=12`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
+**final choice of HOG parameters.**
 
-
-
-** final choice of HOG parameters. **
-
-I tried various combinations of parameters to detect cars on the test images. 
+I tried various combinations of parameters to detect cars on the test images. Here is a example how I tested hog parameters.
 
 ![alt text][image2]
 
 
+**training a classifier** 
 
-####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
+1. Format features using np.vstack and StandardScaler().
+2. Split data into shuffled training and test sets
+3. Train linear SVM using sklearn.svm.LinearSVC().
+ 
+ The code for this step is contained from the second code cell to the 6th cell of the IPython notebook file, svc_train.ipynb. 
 
-I trained a linear SVM using...
 
-###Sliding Window Search
+**II.Sliding Window Search** 
 
 ####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
+I decided to search random window positions at random scales all over the image and came up with this 
+
+1. pyramid = [
+           ((64, 64),  [400, 500]),
+           ((96, 96),  [400, 500]),
+           ((128, 128),[450, 578])
+      ]
+      
+2. xy_overlap=(0.75, 0.75)
 
 ![alt text][image4]
 
