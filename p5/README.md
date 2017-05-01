@@ -10,7 +10,7 @@
 [image4]: ./examples/window.png
 
 
-[image5]: ./examples/tunning.png
+[image5]: ./examples/example_image.png
 
 [image6]: ./examples/FP.png
 
