@@ -3,8 +3,10 @@
 [//]: # (Image References)
 [image0]: ./examples/car_hog.png
 [image1]: ./examples/notcar_hog.png
-[image2]: ./examples/heatmap.png
-[image3]: ./examples/window.png
+
+[image2]: ./examples/svm_para1.png
+[image3]: ./examples/svm_para2.png
+
 [image4]: ./examples/hog_feature.png
 [image5]: ./examples/bboxes_and_heat.png
 [image6]: ./examples/labels_map.png
@@ -37,11 +39,15 @@ I then explored different color spaces and different `skimage.hog()` parameters 
 Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
 
-![alt text][image2]
+
 
 ####2. Explain how you settled on your final choice of HOG parameters.
 
 I tried various combinations of parameters and...
+
+![alt text][image2]
+![alt text][image3]
+
 
 ####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
