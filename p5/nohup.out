@@ -1,9 +1,0 @@
-python: can't open file 'main.pu': [Errno 2] No such file or directory
-  File "main.py", line 1
-    %matplotlib inline
-    ^
-SyntaxError: invalid syntax
-Traceback (most recent call last):
-  File "main.py", line 1, in <module>
-    import matplotlib.image as mpimg
-ImportError: No module named matplotlib.image
