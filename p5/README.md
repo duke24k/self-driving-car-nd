@@ -73,8 +73,6 @@ pyramid = [
       ]
       
 xy_overlap=(0.75, 0.75)
-
-
 ```
 
 ![alt text][image4]
@@ -84,7 +82,9 @@ xy_overlap=(0.75, 0.75)
 
 I used 'LinearSVC.decision_function' to optimize the performance of classifier. I tried default cutoff as below.
 
-- cutoff = (np.mean(dicision_values) + np.max(dicision_values)) // 2.1.
+```
+cutoff = (np.mean(dicision_values) + np.max(dicision_values)) // 2.1.
+```
 
 After the default value, I adjusted the cutoff value after checking below dicision value distribution graph on the sliding window.
 
@@ -126,11 +126,11 @@ I made sample heatmap distritubion of 9 test images and bounding boxes. Here are
 
 Based on those graphics, I droped left side of image detections using below configuration.
 
-""
+```
 left = 1280//3 
 if(np.min(nonzerox) > (left + 30) ):
-    drop boudning box.
-    
+    drop boudning box
+```    
 The code for below step is contained at lines 249 through 290 in utils.py.
 
 It works. However the classifier and detection algorithm should be more enhanced.
