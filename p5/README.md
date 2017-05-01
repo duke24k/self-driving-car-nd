@@ -60,6 +60,8 @@ I tried various combinations of parameters to detect cars on the test images. He
 **II.Sliding Window Search** 
 
 
+The code for below step is contained in the IPython notebook file, svc_train.ipynb. 
+
 I decided to search random window positions using below pyramid and finally came up with this 
 
 1. pyramid = [
@@ -99,32 +101,30 @@ Here's a [link to my video result](./base_v19.mp4)
 
 I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then accumulated that map using 'deque(maxlen=30)' to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
 
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
-
 Here are 9 test image frames and their accumulated heatmaps:
+
 ![alt text][image9]
-
-
-![alt text][image6]
-
-
-However there were still false positives and I made 
-
-![alt text][image7]
- 
-
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
-
 
 
 
 ---
 
-###Discussion
+**Issues**
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+Above approach still showes false positives. When I used more sliding window channels than the above configuration, those false positives were much less. However it is not practical to use too many sliding windows. 
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+I made sample heatmap distritubion of 9 test images and bounding boxes. Here are some example images:
 
+![alt text][image6]
+
+![alt text][image7]
+
+Based on those graphics, I droped left side of image detections using below configuration.
+
+left = 1280//3 
+if(np.min(nonzerox) > (left + 30) ):
+    drop boudning box.
+    
+The code for below step is contained at lines 249 through 290 in utils.py.
+
+It works. However the classifier and detection algorithm should be more enhanced.
