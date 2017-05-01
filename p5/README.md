@@ -19,6 +19,8 @@
 
 [image8]: ./examples/svm_para2.png
 
+[image9]: ./examples/heatmap.png
+
 [video1]: ./base_v19.mp4
 
 
@@ -32,17 +34,16 @@
  
  I started by reading in all the vehicle and non-vehicle images. I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. Here is an example using the `YCrCb` color space with 1 channel and HOG parameters of `orientations=12`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
-Car 
+
 ![alt text][image0]
 
 
-Not Car
 ![alt text][image1]
 
 
 **final choice of HOG parameters.**
 
-I tried various combinations of parameters to detect cars on the test images. Here is a example how I tested hog parameters. Trained SVM performance varies depending on parameters and training times. I choosed SVM which could detect cars on test images even though there were some false positives. Here are some example images:
+I tried various combinations of parameters to detect cars on the test images. Here is a example how I tested hog parameters. Trained SVM performance varies depending on parameters and training times. I choosed SVM which could detect all cars on test images even though there were some false positives. Here are some example images:
 
 ![alt text][image2]
 
@@ -101,6 +102,8 @@ I recorded the positions of positive detections in each frame of the video.  Fro
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
 Here are 9 test image frames and their accumulated heatmaps:
+![alt text][image9]
+
 
 ![alt text][image6]
 
