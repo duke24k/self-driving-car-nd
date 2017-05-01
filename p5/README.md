@@ -32,13 +32,17 @@
  
  I started by reading in all the vehicle and non-vehicle images. I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. Here is an example using the `YCrCb` color space with 1 channel and HOG parameters of `orientations=12`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
+Car 
 ![alt text][image0]
+
+
+Not Car
 ![alt text][image1]
 
 
 **final choice of HOG parameters.**
 
-I tried various combinations of parameters to detect cars on the test images. Here is a example how I tested hog parameters.
+I tried various combinations of parameters to detect cars on the test images. Here is a example how I tested hog parameters. Trained SVM performance varies depending on parameters and training times. I choosed SVM which could detect cars on test images even though there were some false positives. Here are some example images:
 
 ![alt text][image2]
 
@@ -49,13 +53,13 @@ I tried various combinations of parameters to detect cars on the test images. He
 2. Split data into shuffled training and test sets
 3. Train linear SVM using sklearn.svm.LinearSVC().
  
- The code for this step is contained from the second code cell to the 6th cell of the IPython notebook file, svc_train.ipynb. 
+ The code for this step is contained in the 6th cell of the IPython notebook file, svc_train.ipynb. 
 
 ---
 **II.Sliding Window Search** 
 
 
-I decided to search random window positions at random scales all over the image and came up with this 
+I decided to search random window positions using below pyramid and finally came up with this 
 
 1. pyramid = [
            ((64, 64),  [400, 500]),
@@ -79,7 +83,7 @@ After the default value, I adjusted the cutoff value after checking below dicisi
 ![alt text][image8]
 
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Ultimately I decided to use YCrCb 1-channel HOG features plus 32 spatially binned color and 64 histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
 ![alt text][image5]
 
@@ -92,19 +96,24 @@ Here's a [link to my video result](./base_v19.mp4)
 
 **filter for false positives and some method for combining overlapping bounding boxes.**
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then accumulated that map using 'deque(maxlen=30)' to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
-### Here are six frames and their corresponding heatmaps:
+Here are 9 test image frames and their accumulated heatmaps:
 
-
-
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
 ![alt text][image6]
 
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
+
+However there were still false positives and I made 
+
 ![alt text][image7]
+ 
+
+### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
+
+### Here the resulting bounding boxes are drawn onto the last frame in the series:
+
 
 
 
