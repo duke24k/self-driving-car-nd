@@ -64,13 +64,18 @@ The code for below step is contained in the IPython notebook file, svc_train.ipy
 
 I decided to search random window positions using below pyramid and finally came up with this 
 
-1. pyramid = [
+
+```
+pyramid = [
            ((64, 64),  [400, 500]),
            ((96, 96),  [400, 500]),
            ((128, 128),[450, 578])
       ]
       
-2. xy_overlap=(0.75, 0.75)
+xy_overlap=(0.75, 0.75)
+
+
+```
 
 ![alt text][image4]
 
@@ -121,6 +126,7 @@ I made sample heatmap distritubion of 9 test images and bounding boxes. Here are
 
 Based on those graphics, I droped left side of image detections using below configuration.
 
+""
 left = 1280//3 
 if(np.min(nonzerox) > (left + 30) ):
     drop boudning box.
