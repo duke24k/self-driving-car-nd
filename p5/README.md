@@ -17,6 +17,8 @@
 
 [image7]: ./examples/FP2.png
 
+[image8]: ./examples/svm_para2.png
+
 [video1]: ./base_v19.mp4
 
 
@@ -52,7 +54,6 @@ I tried various combinations of parameters to detect cars on the test images. He
 
 **II.Sliding Window Search** 
 
-####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
 I decided to search random window positions at random scales all over the image and came up with this 
 
@@ -66,14 +67,21 @@ I decided to search random window positions at random scales all over the image 
 
 ![alt text][image4]
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
+**optimizing the performance of classifier**
 
-![alt text][image5]
+I used 'LinearSVC.decision_function' to optimize the performance of classifier. I tried default cutoff as below.
+
+- cutoff = (np.mean(dicision_values) + np.max(dicision_values)) // 2.1.
+
+I adjusted the cutoff value using below dicision value distribution graph.
+
+![alt text][image8]
+
 
 Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
-
+![alt text][image5]
 
 ---
 
