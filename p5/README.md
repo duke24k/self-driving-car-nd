@@ -80,6 +80,7 @@ xy_overlap=(0.75, 0.75)
 
 **optimizing the performance of classifier**
 
+The code for below step is contained in the IPython notebook file, svc_train.ipynb.
 I used 'LinearSVC.decision_function' to optimize the performance of classifier. I tried default cutoff as below.
 
 ```
@@ -116,7 +117,7 @@ Here are 9 test image frames and their accumulated heatmaps:
 
 **Issues**
 
-Above approach still showes false positives. When I used more sliding window channels than the above configuration, those false positives were much less. However it is not practical to use too many sliding windows. 
+Above approach still showes false positives. When I used more sliding windows than the above configuration, those false positives were much less. However it is not practical to use too many sliding windows. 
 
 I made sample heatmap distritubion of 9 test images and bounding boxes. Here are some example images:
 
