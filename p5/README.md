@@ -1,7 +1,8 @@
 
 
 [//]: # (Image References)
-[image1]: ./examples/video_hog.png
+[image0]: ./examples/car_hog.png
+[image1]: ./examples/notcar_hog.png
 [image2]: ./examples/heatmap.png
 [image3]: ./examples/window.png
 [image4]: ./examples/hog_feature.png
@@ -28,6 +29,7 @@ The code for this step is contained in the first code cell of the IPython notebo
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
+![alt text][image0]
 ![alt text][image1]
 
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
