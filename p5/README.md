@@ -12,9 +12,9 @@
 
 [image5]: ./examples/tunning.png
 
-[image6]: ./examples/FB.png
+[image6]: ./examples/FP.png
 
-[image7]: ./examples/FB2.png
+[image7]: ./examples/FP2.png
 
 [video1]: ./base_v19.mp4
 
