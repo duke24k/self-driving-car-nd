@@ -51,7 +51,7 @@ I tried various combinations of parameters to detect cars on the test images. He
  
  The code for this step is contained from the second code cell to the 6th cell of the IPython notebook file, svc_train.ipynb. 
 
-
+---
 **II.Sliding Window Search** 
 
 
@@ -74,7 +74,7 @@ I used 'LinearSVC.decision_function' to optimize the performance of classifier. 
 
 - cutoff = (np.mean(dicision_values) + np.max(dicision_values)) // 2.1.
 
-I adjusted the cutoff value using below dicision value distribution graph.
+After the default value, I adjusted the cutoff value after checking below dicision value distribution graph on the sliding window.
 
 ![alt text][image8]
 
@@ -84,14 +84,13 @@ Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spat
 ![alt text][image5]
 
 ---
+**III. Video Implementation**
 
-### Video Implementation
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 Here's a [link to my video result](./base_v19.mp4)
 
 
-####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
+**filter for false positives and some method for combining overlapping bounding boxes.**
 
 I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
 
