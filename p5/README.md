@@ -124,6 +124,9 @@ I made sample heatmap distritubion of 9 test images and bounding boxes. Here are
 
 ![alt text][image7]
 
+Those graphics shows left side dose not have peaks. And it can indicate detection rate on left side is not 
+normal like right side.
+
 Based on those graphics, I droped left side of image detections using below configuration.
 
 ```
