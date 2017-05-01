@@ -246,6 +246,50 @@ def apply_threshold(heatmap, threshold):
 
 
 
+def draw_labeled_bboxes(img, labels):
+    # Iterate through all detected cars
+    for car_number in range(1, labels[1]+1):
+          
+        # Find pixels with each car_number label value
+        nonzero = (labels[0] == car_number).nonzero()
+        # Identify x and y values of those pixels
+        nonzeroy = np.array(nonzero[0])
+        nonzerox = np.array(nonzero[1])
+        # Define a bounding box based on min/max x and y
+          
+#        left = img.shape[0]//3
+        
+        left = 1280//3 
+        padding = 100
+        
+        if(np.min(nonzerox) > (left + 30) ):
+            bbox = ((np.min(nonzerox), np.min(nonzeroy)), (np.max(nonzerox), np.max(nonzeroy)))
+        # Draw the box on the image
+        
+            width = np.max(nonzerox) - np.min(nonzerox)
+            height = np.max(nonzeroy) - np.min(nonzeroy)
+           
+            if(width < 50):
+                
+                padding = (100 - width)//2
+                bbox = ((np.min(nonzerox)-padding, np.min(nonzeroy)), (np.max(nonzerox)+padding, np.max(nonzeroy)))
+              
+            if(height < 50):
+                
+                padding = (100 - height)//2 
+                bbox = ((np.min(nonzerox), np.min(nonzeroy)-padding), (np.max(nonzerox), np.max(nonzeroy)+padding))
+                
+            if(width < 50 and height < 50):
+                
+                padding = (100 - height)//2 
+                bbox = ((np.min(nonzerox)-padding, np.min(nonzeroy)-padding), (np.max(nonzerox)+padding, np.max(nonzeroy)+padding))
+           
+            cv2.rectangle(img, bbox[0], bbox[1], (0,0,255), 6)
+        
+    # Return the image
+    return img
+
+
 def find_cars(img, windows,  svc, image_size= (64,64), cutoff=140, 
                             cspace='RGB', spatial_size=(32,32),  hist_bins=16, 
                             hog_channel='ALL', orient=9, pix_per_cell=8, cell_per_block=2,car_image =False):
@@ -284,123 +328,10 @@ def find_cars(img, windows,  svc, image_size= (64,64), cutoff=140,
                 bbox_list.append(((windows[j][i][0][0],windows[j][i][0][1]),(windows[j][i][1][0],windows[j][i][1][1])))
     return image, bbox_list, pred_dist
 
-def find_cars_test(img, windows,  X_scaler, clf, image_size= (64,64), cutoff=0.8, 
-                            cspace='RGB', spatial_size=(32,32),  hist_bins=16, 
-                            hog_channel='ALL', orient=9, pix_per_cell=8, cell_per_block=2,car_image =False):
-    
-    
-    image = np.copy(img)
-
-    bbox_list = []
-    jloop = len(windows)
-        
-    for j in range(jloop):
-            
-        loop = windows[j]
-        
-        for i in range(len(loop)):
-    
-            img_region = image[windows[j][i][0][1]:windows[j][i][1][1],windows[j][i][0][0]:windows[j][i][1][0]]
-        
-            resized = cv2.resize(img_region, image_size)
-        
-            my_features = extract_single_features(resized,cspace=cspace, spatial_size=spatial_size,  hist_bins=hist_bins, 
-                                                  hog_channel=hog_channel,  orient=orient, pix_per_cell=pix_per_cell,
-                                                  cell_per_block=cell_per_block)
-            
-            scaled_test = X_scaler.transform((np.array(my_features)).reshape(1, -1))
-            
-            #test_features = X_scaler.transform(np.hstack((shape_feat, hist_feat)).reshape(1, -1))    
-            #test_prediction = svc.predict(scaled_test)
-            
-#            y_proba = clf.predict_proba(scaled_test)
-            y_prediction = clf.predict(scaled_test)
-            
-#            print("y_proba")
-#            print(y_proba)
-           
-#            if( y_proba[0][1] > cutoff):
-            if( y_prediction ==  1):
-                                              
-                cv2.rectangle(image,(windows[j][i][0][0],windows[j][i][0][1]),(windows[j][i][1][0],windows[j][i][1][1]),(0,0,255),6) 
-                bbox_list.append(((windows[j][i][0][0],windows[j][i][0][1]),(windows[j][i][1][0],windows[j][i][1][1])))
-    return image, bbox_list
 
 
-def draw_labeled_bboxes(img, labels):
-    # Iterate through all detected cars
-    for car_number in range(1, labels[1]+1):
-        
 
-        
-        # Find pixels with each car_number label value
-        nonzero = (labels[0] == car_number).nonzero()
-        # Identify x and y values of those pixels
-        nonzeroy = np.array(nonzero[0])
-        nonzerox = np.array(nonzero[1])
-        # Define a bounding box based on min/max x and y
-        bbox = ((np.min(nonzerox), np.min(nonzeroy)), (np.max(nonzerox), np.max(nonzeroy)))
-        # Draw the box on the image
-        
-
-        
-        cv2.rectangle(img, bbox[0], bbox[1], (0,0,255), 6)
-    # Return the image
-    return img
 
 
 # Debugging purpose 
 
-def make_image_regions(windows, img):
-
-    test_image_list = []  
-
-    for j in range(len(windows)):
-    
-        loop = windows[j]
-        for i in range(len(loop)):
-    
-            img_region = img[windows[0][i][0][1]:windows[0][i][1][1],windows[0][i][0][0]:windows[0][i][1][0]]
-    
-            test_image_list.append(img_region)
-        
-    return test_image_list
-"""
-def plausible_image_predict(image_list, X_scaler, clf, image_size= (64,64), cutoff=0.8, 
-                            cspace='RGB', spatial_size=(32,32),  hist_bins=16, 
-                            hog_channel='ALL', orient=9, pix_per_cell=8, cell_per_block=2,car_image =False):
-    
-    test_predictions = []
-    car_images = []
-
-    for i in range(len(image_list)):
-        
-            # resize image to 
-            resized = cv2.resize(image_list[i], image_size)
-        
-#            my_features, my_image = extract_single_features(resized,cspace=cspace, spatial_size=spatial_size,  hist_bins=hist_bins, 
-#                                                            hog_channel=hog_channel)
-
-            my_features = extract_single_features(resized,cspace=cspace, spatial_size=spatial_size,  hist_bins=hist_bins, 
-                                                  hog_channel=hog_channel,  orient=orient, pix_per_cell=pix_per_cell,
-                                                  cell_per_block=cell_per_block)
-            
-            #scaled_test = X_scaler.transform((np.array(my_features)).reshape(-1))    
-            scaled_test = X_scaler.transform((np.array(my_features)))
-            
-            #test_features = X_scaler.transform(np.hstack((shape_feat, hist_feat)).reshape(1, -1))    
-            #test_prediction = svc.predict(scaled_test)
-            
-            y_proba = clf.predict_proba(scaled_test)
-    
-            test_predictions.append(y_proba)
-       
-            if( y_proba[0][1] > cutoff and car_image ):
-                car_images.append(resized)
-        
-    if car_images:
-        return test_predictions, car_images
-    
-    else:
-        return test_predictions
-"""
