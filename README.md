@@ -3,20 +3,20 @@ Udaicyt Self Driving Car Nano Degree Project
 ---
 **Term 1 (2017 Jan Cohort)**
 
-1 Lane Detection 
-- p1 directory
 
-2. Traffic Sign Classifier
-- p2 directory
+```
 
-3. Behavioral Cloning
-- p3 directory
+Lane Detection : p1 
 
-4. Advanced Lane Finding
-- p4 directory
+Traffic Sign Classifier : p2 
 
-5. Vehicle Detection and Tracking
-- p5 directory
+Behavioral Cloning : p3 
+
+Advanced Lane Finding : p4 
+
+Vehicle Detection and Tracking : p5 
+
+```
 
 dependency : https://github.com/udacity/CarND-Term1-Starter-Kit
 
