@@ -59,6 +59,7 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
 	float vx = x_state(2);
 	float vy = x_state(3);
 
+  /*
   if (fabs(px) < EPS){
     if(px < 0){
         px = - EPS;
@@ -77,16 +78,20 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
         py = EPS;
     }
   }
+  */
 
 	//pre-compute a set of terms to avoid repeated calculation
 	float c1 = px*px+py*py;
 
+  /*
   if(fabs(c1) < EPS2){
     
    c1 = EPS2;
   }
+  */
 
 	float c2 = sqrt(c1);
+
 	float c3 = (c1*c2);
 
 
