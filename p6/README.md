@@ -12,9 +12,9 @@ This project fuses the position and velocity measurements of obstacles from rade
 
 ## Dependencies
 
-cmake >= 3.5
-make >= 4.1
-gcc/g++ >= 5.4
+1. cmake >= 3.5
+2. make >= 4.1
+3. gcc/g++ >= 5.4
 
 
 ## Basic Build Instructions
