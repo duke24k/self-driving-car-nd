@@ -66,12 +66,13 @@ UKF::UKF() {
   n_x_ = x_.size();
   // Augmented state dimension
   n_aug_ = n_x_ + 2;
-
   n_sig_ = 2 * n_aug_ + 1;
+
 
   // Set the predicted sigma points matrix dimentions
   Xsig_pred_ = MatrixXd(n_x_, n_sig_);
 
+  
   // Sigma point spreading parameter
   lambda_ = 3 - n_aug_;
 
@@ -205,6 +206,8 @@ void UKF::Prediction(double delta_t) {
   P_aug(6,6) = std_yawdd_*std_yawdd_;
 
   //  L is the square root of P i.e. L.transpose()*L = P
+  //  https://eigen.tuxfamily.org/dox/classEigen_1_1LLT.html
+
   MatrixXd L = P_aug.llt().matrixL();
 
   // Create sigma points
@@ -218,8 +221,11 @@ void UKF::Prediction(double delta_t) {
     Xsig_aug.col(i+1)        = x_aug + sqrt_lambda_n_aug_L;
     Xsig_aug.col(i+1+n_aug_) = x_aug - sqrt_lambda_n_aug_L;
   }
+
+
   
-  // Predict sigma points
+  // Predict sigma points 
+  // Udacity video, CTRV Process Noise Position
   for (int i = 0; i< n_sig_; i++)
   {
     // Extract values for better readability
@@ -230,13 +236,20 @@ void UKF::Prediction(double delta_t) {
     double yawd = Xsig_aug(4,i);
     double nu_a = Xsig_aug(5,i);
     double nu_yawdd = Xsig_aug(6,i);
+
+
     // Precalculate sin and cos for optimization
     double sin_yaw = sin(yaw);
     double cos_yaw = cos(yaw);
     double arg = yaw + yawd*delta_t;
+
+
     
     // Predicted state values
     double px_p, py_p;
+
+    // predicted state 
+
     // Avoid division by zero
     if (fabs(yawd) > EPS) { 
   double v_yawd = v/yawd;
@@ -252,7 +265,9 @@ void UKF::Prediction(double delta_t) {
     double yaw_p = arg;
     double yawd_p = yawd;
 
-    // Add noise
+
+
+    // Add noise to the predicted state
     px_p += 0.5*nu_a*delta_t2*cos_yaw;
     py_p += 0.5*nu_a*delta_t2*sin_yaw;
     v_p += nu_a*delta_t;
@@ -266,6 +281,8 @@ void UKF::Prediction(double delta_t) {
     Xsig_pred_(3,i) = yaw_p;
     Xsig_pred_(4,i) = yawd_p;
   }
+
+
   
   // Predicted state mean
   x_ = Xsig_pred_ * weights_; // vectorised sum
@@ -378,6 +395,7 @@ void UKF::UpdateUKF(MeasurementPackage meas_package, MatrixXd Zsig, int n_z){
     NormAng(&(x_diff(3)));
     Tc = Tc + weights_(i) * x_diff * z_diff.transpose();
   }
+
   // Measurements
   VectorXd z = meas_package.raw_measurements_;
   //Kalman gain K;
@@ -388,15 +406,17 @@ void UKF::UpdateUKF(MeasurementPackage meas_package, MatrixXd Zsig, int n_z){
     // Angle normalization
     NormAng(&(z_diff(1)));
   }
+
   // Update state mean and covariance matrix
   x_ = x_ + K * z_diff;
   P_ = P_ - K * S * K.transpose();
+
   // Calculate NIS
-  if (meas_package.sensor_type_ == MeasurementPackage::RADAR){ // Radar
-  NIS_radar_ = z.transpose() * S.inverse() * z;
-  }
-  else if (meas_package.sensor_type_ == MeasurementPackage::LASER){ // Lidar
-  NIS_laser_ = z.transpose() * S.inverse() * z;
-  }
+  //if (meas_package.sensor_type_ == MeasurementPackage::RADAR){ // Radar
+  //NIS_radar_ = z.transpose() * S.inverse() * z;
+  //}
+  //else if (meas_package.sensor_type_ == MeasurementPackage::LASER){ // Lidar
+  //NIS_laser_ = z.transpose() * S.inverse() * z;
+  //}
 
 }
