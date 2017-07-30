@@ -6,12 +6,12 @@ This project fuses the position and velocity measurements of obstacles from rade
 [image2]: ./resources/test.jpg 
 
 ---
-Kalman Filter Algorithm 
+## Kalman Filter Algorithm 
 
 ![alt text][image1]
 
 ---
-##Dependencies
+## Dependencies
 
 cmake >= 3.5
 All OSes: click here for installation instructions
@@ -25,7 +25,7 @@ Mac: same deal as make - install Xcode command line tools
 Windows: recommend using MinGW
 
 ---
-##Basic Build Instructions
+## Basic Build Instructions
 
 1. Clone this repo.
 2. Make a build directory: mkdir build && cd build
@@ -34,7 +34,7 @@ Windows: recommend using MinGW
 4. Run it: ./ExtendedKF
 
 ---
-##Result
+## Result
 The Kalman Filter was able to track obstacles fairly accuractely with the sample measurements/ground truth that I used.
 
 ![alt text][image2]
