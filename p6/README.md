@@ -1,4 +1,4 @@
-This project fuses the position and velocity measurements of obstacles from rader and lasar measurements to track the obstacles through time. It uses linear motion model. 
+This project fuses the position and velocity measurements of obstacles from rader and lasar measurements to track the obstacles through time.  
 
 [//]: # (Image References)
 
@@ -30,3 +30,17 @@ The Kalman Filter was able to track obstacles fairly accuractely with the sample
 
 ![alt text][image2]
 
+## What is Kalman filter 
+
+Thre is good discussion from udacity course forum about Kalman Filters. 
+
+https://discussions.udacity.com/t/what-are-different-localization-methods/56140/2
+
+
+Extended Kalman Filters - here the transition and measurement functions can be nonlinear, but you linearize them using a Taylor series and plug them into a regular Kalman filter. You make the same assumptions about the state transition and measurement noise.
+
+
+Unscented Kalman Filters - again the transition and measurement functions are nonlinear, but rather than a Taylor approximation, you use a different approximation scheme called the unscented transform and then feed the results into a Kalman filter.
+
+
+Particle filters - here the transition and measurement functions are nonlinear. This is a sampling based approach unlike the other filters that are Kalman based. Essentially you approximate the posterior distribution with random samples and feed these directly through your transition and measurement functions.I
