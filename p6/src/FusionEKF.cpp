@@ -98,6 +98,8 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       float rho = measurement_pack.raw_measurements_[0]; // range
       float phi = measurement_pack.raw_measurements_[1]; // bearing
       float rho_dot = measurement_pack.raw_measurements_[2]; // velocity of rho
+
+      
       // Coordinates convertion from polar to cartesian
       float x = rho * cos(phi); 
       float y = rho * sin(phi);

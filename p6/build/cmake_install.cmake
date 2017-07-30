@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/b75199c3-b517-4d61-b873-1602a3b1cfc0/test/CarND/gitrepo/self-driving-car-nd/p6
+# Install script for directory: /home/eugeneseon/CarND-Extended-Kalman-Filter-Project
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/b75199c3-b517-4d61-b873-1602a3b1cfc0/test/CarND/gitrepo/self-driving-car-nd/p6/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/eugeneseon/CarND-Extended-Kalman-Filter-Project/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
