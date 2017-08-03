@@ -1,4 +1,5 @@
 #include "PID.h"
+#include <uWS/uWS.h>
 
 using namespace std;
 
@@ -35,3 +36,7 @@ double PID::TotalError() {
 	 return p_error + i_error + d_error;
 }
 
+void PID::Restart(uWS::WebSocket<uWS::SERVER> ws){
+  std::string reset_msg = "42[\"reset\",{}]";
+  ws.send(reset_msg.data(), reset_msg.length(), uWS::OpCode::TEXT);
+}

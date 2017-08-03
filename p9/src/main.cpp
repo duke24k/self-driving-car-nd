@@ -35,9 +35,15 @@ int main()
   PID pid;
   // TODO: Initialize the pid variable.
 
+  //double init_Kp = 0.1;
+  //double init_Ki = 0.005;
+  //double init_Kd = 4.0;
+
+
   double init_Kp = 0.1;
   double init_Ki = 0.005;
-  double init_Kd = 4.0;
+  double init_Kd = 4.5;
+
   pid.Init(init_Kp, init_Ki, init_Kd);
 
 
@@ -66,6 +72,8 @@ int main()
 
           pid.UpdateError(cte);
           steer_value = pid.TotalError();
+
+     //     steer_value = deg2rad(pid.TotalError());
 
           
           // DEBUG
