@@ -57,25 +57,12 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   }
 
 
-//  double theta = atan(x_(1) / x_(0));
-//  double theta = atan2(x_(1) , x_(0));
-
+  // angle normalization. https://en.wikipedia.org/wiki/Atan2
   double theta = atan2(x_(1) , x_(0));
 
-  
 
-//  if (fabs(x_(0)) < 0.001)
-//   {
-   
- //     theta = atan2(0.0001, 0.001);
- // }
-
-
- // cout << "theta" << endl;
+  cout << "theta" << endl;
   cout << theta << endl;
-
-
-
 
 
   double rho_dot = (x_(0)*x_(2) + x_(1)*x_(3)) / rho;
@@ -84,7 +71,12 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   
   VectorXd y = z - h;
 
+
+  //calculate the angle as sum or difference of values
   y[1] = atan2(sin(y[1]), cos(y[1]));
+
+  cout << "y[1]" << endl;
+  cout << y[1] << endl;
 
   // Calculations are essentially the same to the Update function
   KF(y);

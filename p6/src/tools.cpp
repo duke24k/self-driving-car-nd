@@ -15,7 +15,6 @@ Tools::~Tools() {}
 VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
                               const vector<VectorXd> &ground_truth) {
   /**
-  TODO:
     * Calculate the RMSE here.
   */
 
@@ -48,7 +47,6 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
 
 MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   /**
-  TODO:
     * Calculate a Jacobian here.
   */
 
@@ -59,36 +57,10 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
 	float vx = x_state(2);
 	float vy = x_state(3);
 
-  /*
-  if (fabs(px) < EPS){
-    if(px < 0){
-        px = - EPS;
-    }
-    else{
-        px = EPS;
-    }
-  }
-
-
-  if (fabs(py) < EPS){
-    if(py < 0){
-        py = - EPS;
-    }
-    else{
-        py = EPS;
-    }
-  }
-  */
+ 
 
 	//pre-compute a set of terms to avoid repeated calculation
 	float c1 = px*px+py*py;
-
-  /*
-  if(fabs(c1) < EPS2){
-    
-   c1 = EPS2;
-  }
-  */
 
 	float c2 = sqrt(c1);
 
