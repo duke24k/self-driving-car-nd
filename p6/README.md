@@ -10,10 +10,16 @@ This project fuses the position and velocity measurements of obstacles from rade
 
 ## Basic Build Instructions
 
+This repo contains 10 projects and too large to clone. 
+Alternatively, p6.zip file can be downloaded. 
+(p6.zip contains the project file.)  
+
 1. Clone this repo.
 2. Make a build directory: mkdir build && cd build
 3. Compile: cmake .. && make
 4. Run it: ./ExtendedKF
+
+
 
 
 ## Accuracy
