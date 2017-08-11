@@ -36,11 +36,9 @@ I followed FusiionEKF implementation taught in Udacity class.
 - Creating an instance of the FusionEKF class.
 - Receiving the measurement data calling the ProcessMeasurement() function. ProcessMeasurement() is responsible for the initialization of the Kalman filter as well as calling the prediction and update steps of the Kalman filter. ProcessMeasurement() function is implemented in FusionEKF.cpp.
 
-## Summary 
+## What is Kalman filter 
 
-My UKF implementation is better than EKF implementation. Below is different Kalman filter explanation.
-
-- What is Kalman filter 
+My UKF implementation is better than EKF implementation on Udacity simulator. Below is different Kalman filter explanation.
 
 Thre is good discussion from udacity course forum about Kalman Filters. 
 
