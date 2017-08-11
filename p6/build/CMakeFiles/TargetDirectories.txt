@@ -1,3 +1,0 @@
-/home/eugeneseon/self-driving-car-nd/p6/build/CMakeFiles/edit_cache.dir
-/home/eugeneseon/self-driving-car-nd/p6/build/CMakeFiles/rebuild_cache.dir
-/home/eugeneseon/self-driving-car-nd/p6/build/CMakeFiles/ExtendedKF.dir
