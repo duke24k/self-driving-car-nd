@@ -2,17 +2,15 @@ This project fuses the position and velocity measurements of obstacles from rade
 
 [//]: # (Image References)
 
-[image2]: ./resources/ukf_test.jpg 
-
-
-## Dependencies
-
-1. cmake >= 3.5
-2. make >= 4.1
-3. gcc/g++ >= 5.4
+[image0]: ./resources/ukf_test.jpg 
+[image1]: ./resources/ukf_equation.jpg 
+[image2]: ./resources/sv.jpg 
+[image3]: ./resources/sp_gen.jpg 
 
 
 ## Basic Build Instructions
+
+This repo contains 10 projects and too large to clone. Alternatively, p7.zip file can be downloaded. (p7.zip contains the project file.)
 
 1. Clone this repo.
 2. Make a build directory: mkdir build && cd build
@@ -20,22 +18,31 @@ This project fuses the position and velocity measurements of obstacles from rade
 4. Run it: ./UnscentedKF
 
 
-## Result
-The Kalman Filter was able to track obstacles fairly accuractely with the sample measurements/ground truth that I used.
+## Accuracy
+
+The Kalman Filter was able to track obstacles accuractely and better than previous extended kalman filter.
+
+![alt text][image0]
+
+## Follows the Correct Algorithm
+
+The transition and measurement functions are nonlinear, but rather than a Taylor approximation used in Extended Kalman Filter, it uses a different approximation scheme called the unscented transform and then feed the results into a Kalman filter.
+
+In that point, UKF implementation is different from EKF implementation. 
+
+1. UKF is CRTV model, constant turn rate and velocity magnitude model (CTRV).
 
 ![alt text][image2]
 
-## What is Kalman filter 
+2. UKF generates sigma points and calculate predicted mean and covaraince of sigma points during prediction step. 
 
-Thre is good discussion from udacity course forum about Kalman Filters. 
+ ![alt text][image3]
 
-https://discussions.udacity.com/t/what-are-different-localization-methods/56140/2
+3. UKF Cross-Corelation Matrix during update step
 
+ ![alt text][image1]
 
-Extended Kalman Filters - here the transition and measurement functions can be nonlinear, but you linearize them using a Taylor series and plug them into a regular Kalman filter. You make the same assumptions about the state transition and measurement noise.
+ ## Summary 
 
+ UKF is more accurate than EKF and uses more resources than EKF. 
 
-Unscented Kalman Filters - again the transition and measurement functions are nonlinear, but rather than a Taylor approximation, you use a different approximation scheme called the unscented transform and then feed the results into a Kalman filter.
-
-
-Particle filters - here the transition and measurement functions are nonlinear. This is a sampling based approach unlike the other filters that are Kalman based. Essentially you approximate the posterior distribution with random samples and feed these directly through your transition and measurement functions.

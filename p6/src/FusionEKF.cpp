@@ -40,6 +40,9 @@ FusionEKF::FusionEKF() {
 
 
   //state covariance matrix P
+  //any sensible values would work i.e. assume that the 4 variables are not 
+  //co-related with each other. And that the uncertainty in vx and vy will 
+  //be high because we do not have any information about these when we start the process.
   ekf_.P_ = MatrixXd(4,4);
   ekf_.P_ << 1, 0, 0, 0,
               0, 1, 0, 0,
