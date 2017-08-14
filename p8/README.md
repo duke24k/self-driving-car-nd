@@ -1,4 +1,4 @@
-This project (initializes the location of car with GPS information and) fuses the position and velocity measurements of particles from laser measurements to localize the position of car through time.  
+This project fuses the position, velocity & yaw_rate measurements of particles from udacity simulator to localize the position of car through time.  
 
 [//]: # (Image References)
 
@@ -58,5 +58,5 @@ Below code in main.cpp is provided by Udacity.
 
 
 
-Raw data processing is also necessary to implement particle filter.  
+Raw data processing that get those data will be also necessary to implement particle filter.  
 
