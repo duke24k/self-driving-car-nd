@@ -27,7 +27,7 @@ The particle filter was able to pass the track.
 The transition and measurement functions are nonlinear. This is a sampling based approach unlike the other filters that are Kalman based. Essentially you approximate the posterior distribution with random samples and feed these directly through your transition and measurement functions.
 
 
-In that point, UKF implementation is different from EKF and UKF implementation. 
+In that point, PF implementation is different from EKF and UKF implementation. 
 
  ![alt text][image1]
 
