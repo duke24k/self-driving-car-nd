@@ -39,10 +39,11 @@ int main()
   //double init_Ki = 0.005;
   //double init_Kd = 4.0;
 
+  const double init_Kp = 0.09;
+  const double init_Ki = 0.0;
+  const double init_Kd = 4.0;
 
-  double init_Kp = 0.1;
-  double init_Ki = 0.005;
-  double init_Kd = 4.5;
+  const double target_speed = 35.0;
 
   pid.Init(init_Kp, init_Ki, init_Kd);
 
@@ -63,25 +64,35 @@ int main()
           double speed = std::stod(j[1]["speed"].get<std::string>());
           double angle = std::stod(j[1]["steering_angle"].get<std::string>());
           double steer_value;
-          /*
-          * TODO: Calcuate steering value here, remember the steering value is
-          * [-1, 1].
-          * NOTE: Feel free to play around with the throttle and speed. Maybe use
-          * another PID controller to control the speed!
-          */
-
+      
           pid.UpdateError(cte);
           steer_value = pid.TotalError();
-
-     //     steer_value = deg2rad(pid.TotalError());
-
           
           // DEBUG
-          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
+          //std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
+       
+
 
           json msgJson;
-          msgJson["steering_angle"] = steer_value;
-          msgJson["throttle"] = 0.3;
+
+          /*
+          if(steer_value > 1.0){
+        //    msgJson["throttle"] = 0.0001;
+            steer_value = 1.0;
+          } else if(steer_value < -1.0){
+        //    msgJson["throttle"] = 0.0001;
+            steer_value = -1.0;
+          } else {
+
+         //    msgJson["throttle"] = 0.3;
+          }
+          */
+
+            msgJson["throttle"] = 0.3;
+            msgJson["steering_angle"] = steer_value;
+
+
+          
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
           std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
@@ -118,7 +129,7 @@ int main()
     std::cout << "Disconnected" << std::endl;
   });
 
-  int port = 5678;
+  int port = 4567;
   if (h.listen(port))
   {
     std::cout << "Listening to port " << port << std::endl;

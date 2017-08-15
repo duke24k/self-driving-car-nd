@@ -29,11 +29,20 @@ void PID::UpdateError(double cte) {
     d_error = - Kd * (cte - prev_cte);
     prev_cte = cte;
     //std::cout << "updated error" << std::endl;
+
+  //  if(fabs(d_error) > 1.0){
+  //      std::cout << "d error is larger than 1.0" << std::endl;
+  //  }
 }
 
 double PID::TotalError() {
 
-	 return p_error + i_error + d_error;
+     double te = p_error + i_error + d_error;
+
+     std::cout << "total error" << std::endl;
+     std::cout << te << std::endl;
+
+	 return te;
 }
 
 void PID::Restart(uWS::WebSocket<uWS::SERVER> ws){
