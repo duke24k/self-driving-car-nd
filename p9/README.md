@@ -24,6 +24,7 @@ Taking a snippet from Wikipedia
 
 CTE is provided by the simulator at every iteration. Therefore, I just used below equation for cte without dt.
 
+```
 void PID::UpdateError(double cte) {
 
   sum_cte += cte;
@@ -33,7 +34,7 @@ void PID::UpdateError(double cte) {
     prev_cte = cte;
 
 }
-
+```
 
 I manually tunned each component. Kp and Kd are tuned for the car to minimize oscillation on the straight and curved lane. Ki is tuned based on CTE value when the car drives on the straight lane, after I tuned Kp and Kd.
 
