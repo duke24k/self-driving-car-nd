@@ -29,11 +29,7 @@ void PID::UpdateError(double cte) {
     i_error = - Ki * sum_cte;
     d_error = - Kd * (cte - prev_cte);
     prev_cte = cte;
-    //std::cout << "updated error" << std::endl;
 
-  //  if(fabs(d_error) > 1.0){
-  //      std::cout << "d error is larger than 1.0" << std::endl;
-  //  }
 }
 
 double PID::TotalError() {
@@ -43,8 +39,6 @@ double PID::TotalError() {
 
   //   std::cout << "total error" << std::endl;
   //   std::cout << te << std::endl;
-
-
 
 	 return te;
 }

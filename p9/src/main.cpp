@@ -36,15 +36,10 @@ int main()
   PID pid;
   // TODO: Initialize the pid variable.
 
-  //double init_Kp = 0.1;
-  //double init_Ki = 0.005;
-  //double init_Kd = 4.0;
 
   const double init_Kp = 0.15;
   const double init_Ki = 0.005;
   const double init_Kd = 4.0;
-
-  const double target_speed = 35.0;
 
   pid.Init(init_Kp, init_Ki, init_Kd);
 
@@ -67,8 +62,11 @@ int main()
           double steer_value;
       
           pid.UpdateError(cte);
+
           steer_value = pid.TotalError();
 
+          
+          // constraint on steer_value.
           if(steer_value > 1.0){
             steer_value = 1.0;
           } else if(steer_value < -1.0){
@@ -82,24 +80,9 @@ int main()
        
           json msgJson;
 
-          /*
-          if(fabs(pid.p_error ) > 0.1){
-        //    msgJson["throttle"] = 0.0001;
-         //   std::cout << "pid.p_error" << pid.p_error << std::endl;
-            msgJson["throttle"] = 0.25;
-         //   steer_value = 1.0;
-          } 
-          else {
-
-            msgJson["throttle"] = 0.3;
-          }
-          */
-          
-          
-
+     
             msgJson["throttle"] = 0.3;
             msgJson["steering_angle"] = steer_value;
-
 
           
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
