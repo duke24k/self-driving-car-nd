@@ -19,6 +19,7 @@ void PID::Init(double Kp, double Ki, double Kd) {
     this->Kd = Kd;
     sum_cte = 0;
     prev_cte = 0;
+
 }
 
 void PID::UpdateError(double cte) {
@@ -37,10 +38,13 @@ void PID::UpdateError(double cte) {
 
 double PID::TotalError() {
 
+     
      double te = p_error + i_error + d_error;
 
-     std::cout << "total error" << std::endl;
-     std::cout << te << std::endl;
+  //   std::cout << "total error" << std::endl;
+  //   std::cout << te << std::endl;
+
+
 
 	 return te;
 }

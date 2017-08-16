@@ -24,6 +24,7 @@ public:
   */
   double sum_cte;
   double prev_cte;
+
   
 
   /*
