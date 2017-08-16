@@ -22,7 +22,7 @@ test.mp4 file contains the result.
 Taking a snippet from Wikipedia
 (https://en.wikipedia.org/wiki/PID_controller) 
 
-CTE is provided by the simulator at every iteration. Therefore, I just used below equation for cte without dt.
+CTE was provided by the simulator at every iteration. Therefore, I just used below equation for cte without dt.
 
 ```
 void PID::UpdateError(double cte) {
@@ -36,5 +36,5 @@ void PID::UpdateError(double cte) {
 }
 ```
 
-I manually tunned each component. Kp and Kd are tuned for the car to minimize oscillation on the straight and curved lane. Ki is tuned based on CTE value when the car drives on the straight lane, after I tuned Kp and Kd.
+I manually tunned each component. Kp and Kd were tuned for the car to minimize oscillation on the straight and curved lane. Ki was tuned based on CTE value when the car drives on the straight lane, after I tuned Kp and Kd.
 
