@@ -1,3 +1,0 @@
-/home/eugeneseon/self-driving-car-nd/p10/build/CMakeFiles/edit_cache.dir
-/home/eugeneseon/self-driving-car-nd/p10/build/CMakeFiles/rebuild_cache.dir
-/home/eugeneseon/self-driving-car-nd/p10/build/CMakeFiles/mpc.dir
