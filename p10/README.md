@@ -13,8 +13,7 @@ This repo contains 10 projects and too large to clone. Alternatively, p10.zip fi
 
 ## Result
 
-The vehicle drove on the line before the steep curve just after the bridge. Except that part, the vehicle
-drove on the track safely that drove inside lane. test.mp4 was the test result.
+The vehicle drove on the line before the steep curve just before and after the bridge. Except that part, the vehicle drove on the track safely, driving inside lane. test.mp4 was the test result.
 
 
 ## The model
