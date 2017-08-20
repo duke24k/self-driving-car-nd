@@ -9,8 +9,11 @@ using CppAD::AD;
 //size_t N = 0;
 //double dt = 0;
 
-size_t N = 10;
-double dt = DT;
+//size_t N = 10;
+//double dt = 0.1;
+
+size_t N = 12;
+double dt = 0.1;
 
 // This value assumes the model presented in the classroom is used.
 //
@@ -24,7 +27,10 @@ double dt = DT;
 // This is the length from front to CoG that has a similar radius.
 const double Lf = LF;
 
-double ref_v = 70;
+//double ref_v = 70;
+double ref_v = 100;
+double ref_cte = 0;
+double ref_epsi = 0;
 
 
 size_t x_start = 0;
@@ -57,21 +63,25 @@ class FG_eval {
     // TODO: Define the cost related the reference state and
     // any anything you think may be beneficial.
     for (int i = 0; i < N; i++) {
-      fg[0] += 30000*CppAD::pow(vars[cte_start + i], 2);
-      fg[0] += 30000*CppAD::pow(vars[epsi_start + i], 2);
+   //   fg[0] += 30000*CppAD::pow(vars[cte_start + i], 2);
+   //   fg[0] += 30000*CppAD::pow(vars[epsi_start + i], 2);
+      fg[0] += 10000*CppAD::pow(vars[cte_start + i] - ref_cte, 2);
+ //     fg[0] += 2000*CppAD::pow(vars[cte_start + i] - ref_cte, 2);
+      fg[0] += 10000*CppAD::pow(vars[epsi_start + i] - ref_epsi, 2);
       fg[0] += CppAD::pow(vars[v_start + i] - ref_v, 2);
     }
 
     for (int i = 0; i < N - 1; i++) {
-      fg[0] += 5*CppAD::pow(vars[delta_start + i], 2);
+      fg[0] += 10*CppAD::pow(vars[delta_start + i], 2);
       fg[0] += 5*CppAD::pow(vars[a_start + i], 2);
       // try adding penalty for speed + steer
-      fg[0] += 700*CppAD::pow(vars[delta_start + i] * vars[v_start+i], 2);
+      fg[0] += 1000*CppAD::pow(vars[delta_start + i] * vars[v_start+i], 2);
     }
 
     for (int i = 0; i < N - 2; i++) {
-      fg[0] += 200*CppAD::pow(vars[delta_start + i + 1] - vars[delta_start + i], 2);
-      fg[0] += 10*CppAD::pow(vars[a_start + i + 1] - vars[a_start + i], 2);
+ //     fg[0] += 1000*CppAD::pow(vars[delta_start + i + 1] - vars[delta_start + i], 2);
+      fg[0] += 50000*CppAD::pow(vars[delta_start + i + 1] - vars[delta_start + i], 2);
+      fg[0] += 10000*CppAD::pow(vars[a_start + i + 1] - vars[a_start + i], 2);
     }
 
     //
@@ -107,10 +117,10 @@ class FG_eval {
       AD<double> epsi0 = vars[epsi_start + t - 1];
       AD<double> a = vars[a_start + t - 1];
       AD<double> delta = vars[delta_start + t - 1];
-      if (t > 1) {   // use previous actuations (to account for latency)
-        a = vars[a_start + t - 2];
-        delta = vars[delta_start + t - 2];
-      }
+  //    if (t > 1) {   // use previous actuations (to account for latency)
+  //      a = vars[a_start + t - 2];
+  //      delta = vars[delta_start + t - 2];
+   //   }
       AD<double> f0 = coeffs[0] + coeffs[1] * x0 + coeffs[2] * CppAD::pow(x0, 2) + coeffs[3] * CppAD::pow(x0, 3);
       AD<double> psides0 = CppAD::atan(coeffs[1] + 2 * coeffs[2] * x0 + 3 * coeffs[3] * CppAD::pow(x0, 2));
 
@@ -240,6 +250,7 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   // magnitude.
   options += "Sparse  true        forward\n";
   options += "Sparse  true        reverse\n";
+
   // NOTE: Currently the solver has a maximum time limit of 0.5 seconds.
   // Change this as you see fit.
   options += "Numeric max_cpu_time          0.5\n";
@@ -257,7 +268,7 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
 
   // Cost
   auto cost = solution.obj_value;
-  std::cout << "Cost " << cost << std::endl;
+//  std::cout << "Cost " << cost << std::endl;
 
   // TODO: Return the first actuator values. The variables can be accessed with
   // `solution.x[i]`.

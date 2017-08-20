@@ -77,6 +77,8 @@ double evaluateEpsi(Eigen::VectorXd coeffs) {
     return -atan(coeffs[1]);  
 }
 
+//https://discussions.udacity.com/t/mpc-car-space-conversion-and-output-of-solve-intuition/249469/12
+
 Eigen::MatrixXd transformGlobalToLocal(double x, double y, double psi, const vector<double> & ptsx, const vector<double> & ptsy) {
 
     assert(ptsx.size() == ptsy.size());
@@ -124,45 +126,11 @@ int main() {
           double steering_angle = j[1]["steering_angle"];
           double throttle = j[1]["throttle"];
 
-          /*
-          * TODO: Calculate steering angle and throttle using MPC.
-          *
-          * Both are in between [-1, 1].
-          *
-          */
-
           Eigen::MatrixXd waypoints = transformGlobalToLocal(px,py,psi,ptsx,ptsy);
           Eigen::VectorXd Ptsx = waypoints.row(0);
           Eigen::VectorXd Ptsy = waypoints.row(1);
 
-          // fit a 3rd order polynomial to the waypoints
-      //    auto coeffs = polyfit(Ptsx, Ptsy, 3);
-
-      //    Eigen::VectorXd waypoints_x(ptsx.size());
-      //   Eigen::VectorXd waypoints_y(ptsy.size());
-
-          // transform waypoints to be from car's perspective
-          // this means we can consider px = 0, py = 0, and psi = 0
-          // greatly simplifying future calculations
-      //    for (int i = 0; i < ptsx.size(); i++) {
-      //     double dx = ptsx[i] - px;
-      //      double dy = ptsy[i] - py;
-       //     waypoints_x.push_back(dx * cos(-psi) - dy * sin(-psi));
-       //     waypoints_y.push_back(dx * sin(-psi) + dy * cos(-psi));
-       //   }
-
-          /*
-          double* ptrx = &waypoints_x[0];
-          double* ptry = &waypoints_y[0];
-          Eigen::Map<Eigen::VectorXd> waypoints_x_eig(ptrx, 6);
-          Eigen::Map<Eigen::VectorXd> waypoints_y_eig(ptry, 6);
-
-          auto coeffs = polyfit(waypoints_x_eig, waypoints_y_eig, 3);
-          */
-
           auto coeffs = polyfit(Ptsx , Ptsy , 3);
-
-
 
           // get cross-track error from fit 
           double cte = evaluateCte(coeffs);
@@ -170,60 +138,28 @@ int main() {
           // get orientation error from fit
           double epsi = evaluateEpsi(coeffs);
 
-
           const double dt = DT;
           const double Lf = LF;
 
-          //
-          
-          /*
-          const double px_act = v * dt;
-          const double py_act = 0;
-          const double psi_act = - v * steering_angle * dt / Lf;
-          const double v_act = v + throttle * dt;
-          const double cte_act = cte + v * sin(epsi) * dt;
-          const double epsi_act = epsi + psi_act; 
-
-          Eigen::VectorXd state(6);
-          state << px_act, py_act, psi_act, v_act, cte_act, epsi_act;
-          */
-
-          // state in vehicle coordinates: x,y and orientation are always zero
-
-
-          
+        
           Eigen::VectorXd state(6);
           state << 0, 0, 0, v, cte, epsi;
           
           // compute the optimal trajectory          
           auto vars = mpc.Solve(state, coeffs);
 
-       //   double steer_value = vars.at(latency_ind);
-        //  double throttle_value= vars.at(latency_ind);
-      //    mpc.delta_prev = steer_value;
-      //    mpc.a_prev = throttle_value;
-
           double steer_value;
           double throttle_value;
-
-       //   steer_value = -deg2rad(vars[6])/0.436332;
-         // steer_value = -(vars[6])/0.436332;
-        //  throttle_value= vars[7];
-
 
           steer_value = vars[0];
           throttle_value = vars[1];
 
-
           json msgJson;
+
           // NOTE: Remember to divide by deg2rad(25) before you send the steering value back.
           // Otherwise the values will be in between [-deg2rad(25), deg2rad(25] instead of [-1, 1].
-          msgJson["steering_angle"] =  steer_value/(deg2rad(25));
+          msgJson["steering_angle"] =  steer_value/(deg2rad(25)*Lf);
           
-          //msgJson["steering_angle"] = -deg2rad(steer_value);
-
-          //msgJson["steering_angle"] = steer_value/(deg2rad(25)) ;
-          //msgJson["throttle"] = throttle_value;
           msgJson["throttle"] = throttle_value;
 
           //Display the MPC predicted trajectory 
@@ -253,41 +189,21 @@ int main() {
           //.. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
           // the points in the simulator are connected by a Yellow line
 
-          for (double i = 0; i < 100; i += 3){
-            next_x_vals.push_back(i);
-            next_y_vals.push_back(polyeval(coeffs, i));
+          double poly_inc = 3.0;
+
+          for (double i = 0; i < 25; i += 1){
+            next_x_vals.push_back(i*poly_inc);
+            next_y_vals.push_back(polyeval(coeffs, i*poly_inc));
           }
 
           msgJson["next_x"] = next_x_vals;
           msgJson["next_y"] = next_y_vals;
 
-          //msgJson["mpc_x"] = mpc_x_vals;
-          //msgJson["mpc_y"] = mpc_y_vals;
-          /*
-          msgJson["mpc_x"] = vars[0];
-          msgJson["mpc_y"] = vars[1];
-
-
-          //Display the waypoints/reference line
-          vector<double> next_x_vals;
-          vector<double> next_y_vals;
-
-          //.. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
-          // the points in the simulator are connected by a Yellow line
-
-
-          for (unsigned i=0 ; i < ptsx.size(); ++i) {
-            next_x_vals.push_back(Ptsx(i));
-            next_y_vals.push_back(Ptsy(i));
-          }
-
-
-          msgJson["next_x"] = next_x_vals;
-          msgJson["next_y"] = next_y_vals;
-          */
+   
 
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
-          std::cout << msg << std::endl;
+
+   //       std::cout << msg << std::endl;
           // Latency
           // The purpose is to mimic real driving conditions where
           // the car does actuate the commands instantly.

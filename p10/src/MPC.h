@@ -5,7 +5,10 @@
 #include "Eigen-3.3/Eigen/Core"
 
 #define DT 0.1// time step duration dt in s 
-#define LF 2.67
+
+//the distance between the front of the vehicle and its center of gravity
+#define LF 2.67 
+
 
 
 
