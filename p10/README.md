@@ -94,7 +94,7 @@ dt = 0.05
 
 ```
 
-Atfter that, steer_value & throttle_value whose cose was minimized was fed into simulator. 
+Atfter cost was minimized on the logic, steer_value & throttle_value were minimized was fed into the simulator. 
 
 ```
  
