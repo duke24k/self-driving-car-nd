@@ -5,15 +5,12 @@
 
 using CppAD::AD;
 
-// TODO: Set the timestep length and duration
-//size_t N = 0;
-//double dt = 0;
-
 //size_t N = 10;
 //double dt = 0.1;
 
 size_t N = 12;
-double dt = 0.1;
+//double dt = 0.1;
+double dt = 0.05;
 
 // This value assumes the model presented in the classroom is used.
 //
@@ -47,7 +44,13 @@ class FG_eval {
  public:
   // Fitted polynomial coefficients
   Eigen::VectorXd coeffs;
-  FG_eval(Eigen::VectorXd coeffs) { this->coeffs = coeffs; }
+//  vector<double> previous_actuations;
+
+//  FG_eval(Eigen::VectorXd coeffs,vector<double> previous_actuations) 
+  FG_eval(Eigen::VectorXd coeffs) 
+  { this->coeffs = coeffs;
+ //   this->previous_actuations = previous_actuations; 
+   }
 
   typedef CPPAD_TESTVECTOR(AD<double>) ADvector;
  void operator()(ADvector& fg, const ADvector& vars) {
@@ -63,25 +66,24 @@ class FG_eval {
     // TODO: Define the cost related the reference state and
     // any anything you think may be beneficial.
     for (int i = 0; i < N; i++) {
-   //   fg[0] += 30000*CppAD::pow(vars[cte_start + i], 2);
-   //   fg[0] += 30000*CppAD::pow(vars[epsi_start + i], 2);
-      fg[0] += 10000*CppAD::pow(vars[cte_start + i] - ref_cte, 2);
- //     fg[0] += 2000*CppAD::pow(vars[cte_start + i] - ref_cte, 2);
-      fg[0] += 10000*CppAD::pow(vars[epsi_start + i] - ref_epsi, 2);
+      fg[0] += 2000*CppAD::pow(vars[cte_start + i] - ref_cte, 2);
+      fg[0] += 2000*CppAD::pow(vars[epsi_start + i] - ref_epsi, 2);
       fg[0] += CppAD::pow(vars[v_start + i] - ref_v, 2);
+
     }
 
     for (int i = 0; i < N - 1; i++) {
       fg[0] += 10*CppAD::pow(vars[delta_start + i], 2);
       fg[0] += 5*CppAD::pow(vars[a_start + i], 2);
-      // try adding penalty for speed + steer
       fg[0] += 1000*CppAD::pow(vars[delta_start + i] * vars[v_start+i], 2);
+
+
     }
 
     for (int i = 0; i < N - 2; i++) {
- //     fg[0] += 1000*CppAD::pow(vars[delta_start + i + 1] - vars[delta_start + i], 2);
-      fg[0] += 50000*CppAD::pow(vars[delta_start + i + 1] - vars[delta_start + i], 2);
-      fg[0] += 10000*CppAD::pow(vars[a_start + i + 1] - vars[a_start + i], 2);
+        fg[0] += 800*CppAD::pow(vars[delta_start + i + 1] - vars[delta_start + i], 2);
+        fg[0] += 500*CppAD::pow(vars[a_start + i + 1] - vars[a_start + i], 2);
+
     }
 
     //
@@ -117,10 +119,6 @@ class FG_eval {
       AD<double> epsi0 = vars[epsi_start + t - 1];
       AD<double> a = vars[a_start + t - 1];
       AD<double> delta = vars[delta_start + t - 1];
-  //    if (t > 1) {   // use previous actuations (to account for latency)
-  //      a = vars[a_start + t - 2];
-  //      delta = vars[delta_start + t - 2];
-   //   }
       AD<double> f0 = coeffs[0] + coeffs[1] * x0 + coeffs[2] * CppAD::pow(x0, 2) + coeffs[3] * CppAD::pow(x0, 3);
       AD<double> psides0 = CppAD::atan(coeffs[1] + 2 * coeffs[2] * x0 + 3 * coeffs[3] * CppAD::pow(x0, 2));
 
@@ -132,12 +130,14 @@ class FG_eval {
       // these to the solver.
 
       // TODO: Setup the rest of the model constraints
+      
       fg[1 + x_start + t] = x1 - (x0 + v0 * CppAD::cos(psi0) * dt);
       fg[1 + y_start + t] = y1 - (y0 + v0 * CppAD::sin(psi0) * dt);
       fg[1 + psi_start + t] = psi1 - (psi0 - v0/Lf * delta * dt);
       fg[1 + v_start + t] = v1 - (v0 + a * dt);
       fg[1 + cte_start + t] = cte1 - ((f0 - y0) + (v0 * CppAD::sin(epsi0) * dt));
       fg[1 + epsi_start + t] = epsi1 - ((psi0 - psides0) - v0/Lf * delta * dt);
+
     }
   }
 };
@@ -148,7 +148,8 @@ class FG_eval {
 MPC::MPC() {}
 MPC::~MPC() {}
 
-vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
+//vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
+Solution MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   bool ok = true;
  // size_t i;
   typedef CPPAD_TESTVECTOR(double) Dvector;
@@ -203,10 +204,22 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
     vars_upperbound[i] = 0.436332;
   }
 
+  // constrain delta to be the previous control for the latency time
+  for (int i = delta_start; i < delta_start + latency_ind; i++) {
+    vars_lowerbound[i] = prevDelta;
+    vars_upperbound[i] = prevDelta;
+  }
+
   // Acceleration/decceleration upper and lower limits.
   for (int i = a_start; i < n_vars; i++) {
     vars_lowerbound[i] = -1.0;
     vars_upperbound[i] = 1.0;
+  }
+
+  // Constrain acceleration/decceleration to be the previous control for the latency time
+   for (int i = a_start; i < a_start + latency_ind; i++) {
+    vars_lowerbound[i] = prevA;
+    vars_upperbound[i] = prevA;
   }
 
 
@@ -234,6 +247,8 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
 
   // object that computes objective and constraints
 
+ // vector<double> previous_actuations = {prevDelta,prevA};
+//  FG_eval fg_eval(coeffs, previous_actuations);
   FG_eval fg_eval(coeffs);
 
   //
@@ -267,24 +282,20 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   ok &= solution.status == CppAD::ipopt::solve_result<Dvector>::success;
 
   // Cost
-  auto cost = solution.obj_value;
-//  std::cout << "Cost " << cost << std::endl;
 
-  // TODO: Return the first actuator values. The variables can be accessed with
-  // `solution.x[i]`.
-  //
-  // {...} is shorthand for creating a vector, so auto x1 = {1.0,2.0}
-  // creates a 2 element double vector.
 
-  vector<double> result;
+  Solution sol;
+  
+  for (auto i = 0; i < N-1 ; i++){
 
-  result.push_back(solution.x[delta_start]);
-  result.push_back(solution.x[a_start]);
-
-  for (int i = 0; i < N-1; i++) {
-    result.push_back(solution.x[x_start + i + 1]);
-    result.push_back(solution.x[y_start + i + 1]);
+    sol.X.push_back(solution.x[x_start+i]);
+    sol.Y.push_back(solution.x[y_start+i]);
+    sol.Delta.push_back(solution.x[delta_start+i]);
+    sol.A.push_back(solution.x[a_start+i]);
   }
 
-  return result;
+  auto cost = solution.obj_value;
+  std::cout << "Cost " << cost << std::endl;
+
+  return sol;
 }

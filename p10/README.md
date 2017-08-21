@@ -26,12 +26,16 @@ The MPC model was made based on udacity class.
 
 I used below parameter values. 
 
-N was decided how well MPC line was drawn. 12 was better than 10 in my case.
+N was decided how well MPC line was drawn. 12 & 0.05 was better than 10 & 0.1 in my case.
+
+size_t N = 12;
+double dt = 0.05;
+
+/ deleted
 dt value followed udacity discussion forum. 
 ( https://discussions.udacity.com/t/need-help-in-implementing-mpc-project/257510/4 )
 
-size_t N = 12;
-double dt = 0.1;
+
 
 
 ## Polynominal Fitting and MPC Preprocessing
@@ -64,7 +68,38 @@ Eigen::MatrixXd transformGlobalToLocal(double x, double y, double psi, const vec
 
 ## Model Predictive Control with Latency
 
-Latency, 100 ms, were used on the model.
+My reviewer suggests...
+
+```
+Two common aproaches exist to take delays into account:
+
+In one approach the prospective position of the car is estimated based on its current speed and heading direction by propagating the position of the car forward until the expected time when actuations are expected to have an effect. The NMPC trajectory is then determined by solving the control problem starting from that position.
+In the other approach the control problem is solved from the current position and time onwards. Latency is taken into account by constraining the controls to the values of the previous iteration for the duration of the latency. Thus the optimal trajectory is computed starting from the time after the latency period. This has the advantage that the dynamics during the latency period is still calculated according to the vehicle model.
+```
+
+I did the second approach and 0.1 Latency was used.
+
+```
+const int latency_ind = 2;
+dt = 0.05
+
+0.1 = 2 * 0.05
+
+```
+
+Atfter that, steer_value & throttle_value whose cose was minimized was fed into simulator. 
+
+```
+ 
+ double steer_value = sol.Delta.at(latency_ind);
+ double throttle_value= sol.A.at(latency_ind);
+
+ ```
+ 151 and 152 line in the file, main.cpp. 
+
+
+
+Latency, 100 ms, were also used on the model.
 
 ```
 this_thread::sleep_for(chrono::milliseconds(100));
