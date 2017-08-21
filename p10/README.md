@@ -73,8 +73,15 @@ My reviewer suggests...
 ```
 Two common aproaches exist to take delays into account:
 
-In one approach the prospective position of the car is estimated based on its current speed and heading direction by propagating the position of the car forward until the expected time when actuations are expected to have an effect. The NMPC trajectory is then determined by solving the control problem starting from that position.
-In the other approach the control problem is solved from the current position and time onwards. Latency is taken into account by constraining the controls to the values of the previous iteration for the duration of the latency. Thus the optimal trajectory is computed starting from the time after the latency period. This has the advantage that the dynamics during the latency period is still calculated according to the vehicle model.
+In one approach the prospective position of the car is estimated based on its current speed and heading
+direction by propagating the position of the car forward until the expected time when actuations are
+expected to have an effect. The NMPC trajectory is then determined by solving the control problem starting
+from that position.
+In the other approach the control problem is solved from the current position and time onwards. Latency is
+taken into account by constraining the controls to the values of the previous iteration for the duration
+of the latency. Thus the optimal trajectory is computed starting from the time after the latency period.
+This has the advantage that the dynamics during the latency period is still calculated according to the
+vehicle model.
 ```
 
 I did the second approach and 0.1 Latency was used.
