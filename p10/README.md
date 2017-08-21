@@ -13,7 +13,7 @@ This repo contains 10 projects and too large to clone. Alternatively, p10.zip fi
 
 ## Result
 
-The vehicle drove on the line before the steep curve just before and after the bridge. Except that part, the vehicle drove on the track safely, driving inside lane. test.mp4 was the test result.
+The vehicle drove on the track safely, driving inside lane at the reasonable speed. test.mp4 was the test result.
 
 
 ## The model
@@ -96,7 +96,7 @@ Atfter cost was minimized on the logic, steer_value & throttle_value were fed in
  double throttle_value= sol.A.at(latency_ind);
 
  ```
- 151 and 152 line in the file, main.cpp. 
+ (151 and 152 line in the file, main.cpp.) 
 
 
 
