@@ -26,17 +26,11 @@ The MPC model was made based on udacity class.
 
 I used below parameter values. 
 
-N was decided how well MPC line was drawn. 12 & 0.05 was better than 10 & 0.1 in my case.
-
+N and dt were decided how well MPC line was drawn. 
+```
 size_t N = 12;
 double dt = 0.05;
-
-/ deleted
-dt value followed udacity discussion forum. 
-( https://discussions.udacity.com/t/need-help-in-implementing-mpc-project/257510/4 )
-
-
-
+```
 
 ## Polynominal Fitting and MPC Preprocessing
 
@@ -94,7 +88,7 @@ dt = 0.05
 
 ```
 
-Atfter cost was minimized on the logic, steer_value & throttle_value were minimized was fed into the simulator. 
+Atfter cost was minimized on the logic, steer_value & throttle_value were fed into the simulator. 
 
 ```
  
